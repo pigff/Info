@@ -9,10 +9,14 @@ import android.widget.TextView;
 
 import com.info.lin.infoproject.R;
 
+import rx.Subscription;
+
 /**
  * Created by lin on 2017/2/21.
  */
 public class BaseActivity extends AppCompatActivity {
+
+    protected Subscription mSubscription;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,6 +40,14 @@ public class BaseActivity extends AppCompatActivity {
                     finish();
                 }
             });
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mSubscription != null && !mSubscription.isUnsubscribed()) {
+            mSubscription.unsubscribe();
         }
     }
 }

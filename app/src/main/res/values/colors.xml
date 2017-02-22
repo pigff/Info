@@ -5,4 +5,105 @@
     <color name="colorAccent">#FF4081</color>
     <color name="grey">#c6c3c3</color>
     <color name="white">#ffff</color>
+    <color name="black">#000</color>
+
+    <!-- red -->
+    <color name="md_red_200_color_code">#f69988</color>
+    <color name="md_red_300_color_code">#f36c60</color>
+    <color name="md_red_900_color_code">#b0120a</color>
+
+
+    <!-- pink -->
+
+    <color name="md_pink_300_color_code">#f06292</color>
+    <color name="md_pink_a100_color_code">#ff80ab</color>
+
+    <!-- purple -->
+    <color name="md_purple_400_color_code">#ab47bc</color>
+    <color name="md_purple_500_color_code">#9c27b0</color>
+    <color name="md_purple_900_color_code">#4a148c</color>
+
+    <!-- deep_purple -->
+    <color name="md_deep_purple_300_color_code">#9575cd</color>
+    <color name="md_deep_purple_900_color_code">#311b92</color>
+
+
+    <!-- indigo -->
+    <color name="md_indigo_800_color_code">#283593</color>
+    <color name="md_indigo_900_color_code">#1a237e</color>
+    <color name="md_indigo_a700_color_code">#304ffe</color>
+
+
+    <!-- blue -->
+    <color name="md_blue_500_color_code">#5677fc</color>
+    <color name="md_blue_900_color_code">#2a36b1</color>
+
+
+    <!-- light_blue -->
+    <color name="md_light_blue_300_color_code">#4fc3f7</color>
+    <color name="md_light_blue_700_color_code">#0288d1</color>
+    <color name="md_light_blue_900_color_code">#01579b</color>
+
+    <!-- cyan -->
+    <color name="md_cyan_300_color_code">#4dd0e1</color>
+    <color name="md_cyan_800_color_code">#00838f</color>
+    <color name="md_cyan_900_color_code">#006064</color>
+
+    <!-- teal -->
+    <color name="md_teal_300_color_code">#4db6ac</color>
+    <color name="md_teal_800_color_code">#00695c</color>
+    <color name="md_teal_900_color_code">#004d40</color>
+
+    <!-- green -->
+    <color name="md_green_300_color_code">#42bd41</color>
+    <color name="md_green_800_color_code">#056f00</color>
+    <color name="md_green_900_color_code">#0d5302</color>
+
+    <!-- light_green -->
+    <color name="md_light_green_300_color_code">#aed581</color>
+    <color name="md_light_green_800_color_code">#558b2f</color>
+    <color name="md_light_green_900_color_code">#33691e</color>
+
+    <!-- lime -->
+    <color name="md_lime_300_color_code">#dce775</color>
+    <color name="md_lime_800_color_code">#9e9d24</color>
+    <color name="md_lime_900_color_code">#827717</color>
+
+    <!-- yellow -->
+    <color name="md_yellow_300_color_code">#fff176</color>
+    <color name="md_yellow_800_color_code">#f9a825</color>
+    <color name="md_yellow_900_color_code">#f57f17</color>
+
+    <!-- amber -->
+    <color name="md_amber_300_color_code">#ffd54f</color>
+    <color name="md_amber_800_color_code">#ff8f00</color>
+    <color name="md_amber_900_color_code">#ff6f00</color>
+
+    <!-- orange -->
+    <color name="md_orange_300_color_code">#ffb74d</color>
+    <color name="md_orange_800_color_code">#ef6c00</color>
+    <color name="md_orange_900_color_code">#e65100</color>
+
+
+    <!-- deep_orange -->
+    <color name="md_deep_orange_300_color_code">#ff8a65</color>
+    <color name="md_deep_orange_800_color_code">#d84315</color>
+    <color name="md_deep_orange_900_color_code">#bf360c</color>
+
+    <!-- brown -->
+    <color name="md_brown_300_color_code">#a1887f</color>
+    <color name="md_brown_800_color_code">#4e342e</color>
+    <color name="md_brown_900_color_code">#3e2723</color>
+
+
+    <!-- grey -->
+    <color name="md_grey_300_color_code">#e0e0e0</color>
+    <color name="md_grey_800_color_code">#424242</color>
+    <color name="md_grey_900_color_code">#212121</color>
+
+
+    <!-- blue_grey -->
+    <color name="md_blue_grey_300_color_code">#90a4ae</color>
+    <color name="md_blue_grey_800_color_code">#37474f</color>
+    <color name="md_blue_grey_900_color_code">#263238</color>
 </resources>

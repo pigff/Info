@@ -4,11 +4,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.info.lin.infoproject.R;
@@ -17,6 +16,7 @@ import com.info.lin.infoproject.ui.fragment.GirlFragment;
 import com.info.lin.infoproject.ui.fragment.HomeFragment;
 import com.info.lin.infoproject.ui.fragment.LikeFragment;
 import com.info.lin.infoproject.ui.fragment.MeFragment;
+import com.info.lin.infoproject.widget.NoScrollViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +26,9 @@ public class MainActivity extends BaseActivity {
 
     private List<Tab> mTabs;
     private TabLayout mTabLayout;
-    private ViewPager mViewPager;
+    private NoScrollViewPager mViewPager;
     private List<Fragment> mFragments;
+    private RelativeLayout mTitleGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,30 +39,35 @@ public class MainActivity extends BaseActivity {
 
     private void init() {
         initData();
+
         initView();
 
         initListener();
     }
 
     private void initListener() {
-        mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Log.d("MainActivity", "tab.getPosition(): selected" + tab.getPosition());
                 View view = tab.getCustomView();
+                int position = tab.getPosition();
                 if (view != null) {
                     ImageView imageView = (ImageView) view.findViewById(R.id.iv_tab);
                     TextView textView = (TextView) view.findViewById(R.id.tv_tab);
-                    imageView.setImageResource(mTabs.get(tab.getPosition()).getImgSrcOn());
+                    imageView.setImageResource(mTabs.get(position).getImgSrcOn());
                     textView.setTextColor(Color.parseColor("#18d6f0"));
                 }
-                mViewPager.setCurrentItem(tab.getPosition(), false);
-                setTitle(mTabs.get(tab.getPosition()).getTitle());
+                mViewPager.setCurrentItem(position, false);
+                setTitle(mTabs.get(position).getTitle());
+                if (position == 0) {
+                    mTitleGroup.setVisibility(View.GONE);
+                } else {
+                    mTitleGroup.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                Log.d("MainActivity", "tab.getPosition(): unselected" + tab.getPosition());
                 View view = tab.getCustomView();
                 if (view != null) {
                     ImageView imageView = (ImageView) view.findViewById(R.id.iv_tab);
@@ -76,47 +82,20 @@ public class MainActivity extends BaseActivity {
 
             }
         });
-//        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//                Log.d("MainActivity", "tab.getPosition(): selected" + tab.getPosition());
-//                View view = tab.getCustomView();
-//                if (view != null) {
-//                    ImageView imageView = (ImageView) view.findViewById(R.id.iv_tab);
-//                    TextView textView = (TextView) view.findViewById(R.id.tv_tab);
-//                    imageView.setImageResource(mTabs.get(tab.getPosition()).getImgSrcOn());
-//                    textView.setTextColor(Color.parseColor("#18d6f0"));
-//                }
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//                Log.d("MainActivity", "tab.getPosition(): unselected" + tab.getPosition());
-//                View view = tab.getCustomView();
-//                if (view != null) {
-//                    ImageView imageView = (ImageView) view.findViewById(R.id.iv_tab);
-//                    TextView textView = (TextView) view.findViewById(R.id.tv_tab);
-//                    imageView.setImageResource(mTabs.get(tab.getPosition()).getImgSrcOff());
-//                    textView.setTextColor(Color.parseColor("#bfbfbf"));
-//                }
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//
-//            }
-//        });
     }
 
     private void initView() {
-        mViewPager = (ViewPager) findViewById(R.id.main_vp);
+        mViewPager = (NoScrollViewPager) findViewById(R.id.main_vp);
         mTabLayout = (TabLayout) findViewById(R.id.main_tab);
+        mTitleGroup = (RelativeLayout) findViewById(R.id.title_group);
 
         for (int i = 0; i < mTabs.size(); i++) {
             mTabLayout.addTab(mTabLayout.newTab().setCustomView(getTabView(i)));
         }
         mViewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), mFragments));
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+
+        mTitleGroup.setVisibility(View.GONE);
     }
 
     private void initData() {
@@ -145,6 +124,7 @@ public class MainActivity extends BaseActivity {
             textView.setTextColor(Color.parseColor("#18d6f0"));
         } else {
             imageView.setImageResource(tab.getImgSrcOff());
+            textView.setTextColor(Color.parseColor("#bfbfbf"));
         }
         return view;
     }
