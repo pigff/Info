@@ -5,9 +5,9 @@ package com.info.lin.infoproject.data;
  */
 public class GankBaseBean<T> {
 
-    protected boolean error;
+    private boolean error;
 
-    protected T t;
+    private T t;
 
     public boolean isError() {
         return error;
@@ -23,5 +23,13 @@ public class GankBaseBean<T> {
 
     public void setT(T t) {
         this.t = t;
+    }
+
+    @Override
+    public String toString() {
+        return "GankBaseBean{" +
+                "t=" + t +
+                ", error=" + error +
+                '}';
     }
 }

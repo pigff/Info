@@ -9,6 +9,7 @@ public interface Constants {
 
     //gank type
     String TYPE_ANDROID = "Android";
+    String TYPE_DAILY = "每日推荐";
     String TYPE_IOS = "iOS";
     String TYPE_WEB = "前端";
     String TYPE_APP = "App";

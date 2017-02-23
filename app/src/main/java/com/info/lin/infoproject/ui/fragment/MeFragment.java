@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.info.lin.infoproject.R;
-import com.info.lin.infoproject.ui.BaseFragment;
+import com.info.lin.infoproject.ui.base.BaseFragment;
 
 
 public class MeFragment extends BaseFragment {

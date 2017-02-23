@@ -1,4 +1,4 @@
-package com.info.lin.infoproject.ui;
+package com.info.lin.infoproject.ui.base;
 
 import android.support.v4.app.Fragment;
 

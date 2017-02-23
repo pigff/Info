@@ -14,10 +14,11 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.info.lin.infoproject.R;
-import com.info.lin.infoproject.data.GankBeautyResult;
+import com.info.lin.infoproject.data.GankBeautyResponse;
+import com.info.lin.infoproject.data.GankItemBean;
 import com.info.lin.infoproject.network.CallBack;
 import com.info.lin.infoproject.network.RequestManager;
-import com.info.lin.infoproject.ui.BaseFragment;
+import com.info.lin.infoproject.ui.base.BaseFragment;
 import com.info.lin.infoproject.utils.Constants;
 import com.info.lin.infoproject.utils.ImgLoadUtils;
 
@@ -86,13 +87,13 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     private void getData() {
         mSubscription = RequestManager.getInstance()
-                .getGirlData(mNumber, mPage, new CallBack<GankBeautyResult>() {
+                .getGirlData(mNumber, mPage, new CallBack<GankBeautyResponse>() {
                     @Override
-                    public void success(GankBeautyResult gankBeautyResult) {
+                    public void success(GankBeautyResponse gankBeautyResponse) {
                         if (mPage == 1) {
-                            mAdapter.setNewData(gankBeautyResult.getResults());
+                            mAdapter.setNewData(gankBeautyResponse.getResults());
                         } else {
-                            mAdapter.addData(gankBeautyResult.getResults());
+                            mAdapter.addData(gankBeautyResponse.getResults());
                         }
                         handleNet(true);
                         mPage++;
@@ -150,16 +151,14 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     }
 
     private void initAdapter() {
-        List<GankBeautyResult.BeautyResult> beautyResults = new ArrayList<>();
-        mAdapter = new GirlAdapter(R.layout.girl_card_item, beautyResults);
+        List<GankItemBean> gankItemBeen = new ArrayList<>();
+        mAdapter = new GirlAdapter(R.layout.girl_card_item, gankItemBeen);
         mAdapter.setOnLoadMoreListener(this);
     }
 
     @Override
     public void onRefresh() {
-        Log.d("GirlFragment", "mPage:" + mPage);
         mPage = 1;
-        Log.d("GirlFragment", "mPage:" + mPage);
         getData();
     }
 
@@ -170,15 +169,15 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         }
     }
 
-    class GirlAdapter extends BaseQuickAdapter<GankBeautyResult.BeautyResult, BaseViewHolder> {
+    class GirlAdapter extends BaseQuickAdapter<GankItemBean, BaseViewHolder> {
 
 
-        public GirlAdapter(int layoutResId, List<GankBeautyResult.BeautyResult> data) {
+        public GirlAdapter(int layoutResId, List<GankItemBean> data) {
             super(layoutResId, data);
         }
 
         @Override
-        protected void convert(BaseViewHolder helper, GankBeautyResult.BeautyResult item) {
+        protected void convert(BaseViewHolder helper, GankItemBean item) {
             ImgLoadUtils.loadUrl(mContext, item.getUrl(), R.drawable.img_load_error
                     , (ImageView) helper.getView(R.id.iv_girl_card), 600, 600);
         }

@@ -1,4 +1,4 @@
-package com.info.lin.infoproject.ui;
+package com.info.lin.infoproject.ui.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

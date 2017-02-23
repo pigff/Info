@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.info.lin.infoproject.R;
 import com.info.lin.infoproject.adapter.MainPagerAdapter;
+import com.info.lin.infoproject.ui.base.BaseActivity;
 import com.info.lin.infoproject.ui.fragment.GirlFragment;
 import com.info.lin.infoproject.ui.fragment.MainFragment;
 import com.info.lin.infoproject.ui.fragment.LikeFragment;
