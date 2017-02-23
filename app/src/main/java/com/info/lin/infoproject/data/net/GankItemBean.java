@@ -1,4 +1,4 @@
-package com.info.lin.infoproject.data;
+package com.info.lin.infoproject.data.net;
 
 /**
  * Created by lin on 2017/2/23.

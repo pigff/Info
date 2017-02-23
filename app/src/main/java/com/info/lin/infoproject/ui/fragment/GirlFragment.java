@@ -14,8 +14,8 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.info.lin.infoproject.R;
-import com.info.lin.infoproject.data.GankBeautyResponse;
-import com.info.lin.infoproject.data.GankItemBean;
+import com.info.lin.infoproject.data.net.GankBeautyResponse;
+import com.info.lin.infoproject.data.net.GankItemBean;
 import com.info.lin.infoproject.network.CallBack;
 import com.info.lin.infoproject.network.RequestManager;
 import com.info.lin.infoproject.ui.base.BaseFragment;
@@ -152,7 +152,7 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     private void initAdapter() {
         List<GankItemBean> gankItemBeen = new ArrayList<>();
-        mAdapter = new GirlAdapter(R.layout.girl_card_item, gankItemBeen);
+        mAdapter = new GirlAdapter(R.layout.recycler_item_card_girl, gankItemBeen);
         mAdapter.setOnLoadMoreListener(this);
     }
 
@@ -172,7 +172,7 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     class GirlAdapter extends BaseQuickAdapter<GankItemBean, BaseViewHolder> {
 
 
-        public GirlAdapter(int layoutResId, List<GankItemBean> data) {
+        GirlAdapter(int layoutResId, List<GankItemBean> data) {
             super(layoutResId, data);
         }
 

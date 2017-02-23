@@ -1,4 +1,4 @@
-package com.info.lin.infoproject.data;
+package com.info.lin.infoproject.data.net;
 
 import com.google.gson.annotations.SerializedName;
 import com.info.lin.infoproject.utils.Constants;

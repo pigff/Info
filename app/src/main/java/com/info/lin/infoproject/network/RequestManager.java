@@ -1,8 +1,9 @@
 package com.info.lin.infoproject.network;
 
-import com.info.lin.infoproject.data.DayHistoryResponse;
-import com.info.lin.infoproject.data.GankBeautyResponse;
-import com.info.lin.infoproject.data.GankDailyResponse;
+import com.info.lin.infoproject.data.net.DayHistoryResponse;
+import com.info.lin.infoproject.data.net.GankBeautyResponse;
+import com.info.lin.infoproject.data.net.GankDailyResponse;
+import com.info.lin.infoproject.data.net.GankDataResponse;
 import com.info.lin.infoproject.data.api.GankApi;
 import com.info.lin.infoproject.utils.AppUtils;
 import com.info.lin.infoproject.utils.Constants;
@@ -151,6 +152,23 @@ public class RequestManager {
                     @Override
                     public void call(GankDailyResponse gankDailyResponse) {
                         callBack.handle(gankDailyResponse);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        callBack.handleError();
+                    }
+                });
+    }
+
+    public Subscription getGankData(String category, int count, int page, final CallBack<GankDataResponse> callBack) {
+        return mGankApi.getGankData(category, count, page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<GankDataResponse>() {
+                    @Override
+                    public void call(GankDataResponse gankDataResponse) {
+                        callBack.handle(gankDataResponse);
                     }
                 }, new Action1<Throwable>() {
                     @Override

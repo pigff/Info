@@ -1,4 +1,4 @@
-package com.info.lin.infoproject.data;
+package com.info.lin.infoproject.data.net;
 
 import java.util.List;
 

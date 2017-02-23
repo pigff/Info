@@ -1,11 +1,12 @@
-package com.info.lin.infoproject.data;
+package com.info.lin.infoproject.data.net;
 
 import java.util.List;
 
 /**
- * Created by lin on 2017/2/22.
+ * Created by lin on 2017/2/23.
  */
-public class GankBeautyResponse extends GankBaseBean<GankItemBean>{
+
+public class GankDataResponse extends GankBaseBean<GankItemBean> {
 
     private List<GankItemBean> results;
 
@@ -16,5 +17,4 @@ public class GankBeautyResponse extends GankBaseBean<GankItemBean>{
     public void setResults(List<GankItemBean> results) {
         this.results = results;
     }
-
 }
