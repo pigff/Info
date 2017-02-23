@@ -10,7 +10,7 @@ import com.info.lin.infoproject.R;
 import com.info.lin.infoproject.ui.BaseFragment;
 
 
-public class HomeFragment extends BaseFragment {
+public class MainFragment extends BaseFragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -19,13 +19,13 @@ public class HomeFragment extends BaseFragment {
     private String mParam2;
 
 
-    public HomeFragment() {
+    public MainFragment() {
         // Required empty public constructor
     }
 
 
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
+    public static MainFragment newInstance(String param1, String param2) {
+        MainFragment fragment = new MainFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -46,7 +46,8 @@ public class HomeFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        return view;
     }
 
 }

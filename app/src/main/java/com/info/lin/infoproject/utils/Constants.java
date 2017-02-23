@@ -3,7 +3,7 @@ package com.info.lin.infoproject.utils;
 /**
  * Created by lin on 2017/2/18.
  */
-public interface Contants {
+public interface Constants {
 
     String GANK_BASE_URL = "http://gank.io/api/";
 
@@ -16,4 +16,6 @@ public interface Contants {
     String TYPE_REST_VIDEO = "休息视频";
     String TYPE_EXPAND_RES = "拓展资源";
     String TYPE_RECOMMEND = "瞎推荐";
+
+    int MAX_PAGE = 4;
 }

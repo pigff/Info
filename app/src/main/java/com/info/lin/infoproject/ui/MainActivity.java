@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.info.lin.infoproject.R;
 import com.info.lin.infoproject.adapter.MainPagerAdapter;
 import com.info.lin.infoproject.ui.fragment.GirlFragment;
-import com.info.lin.infoproject.ui.fragment.HomeFragment;
+import com.info.lin.infoproject.ui.fragment.MainFragment;
 import com.info.lin.infoproject.ui.fragment.LikeFragment;
 import com.info.lin.infoproject.ui.fragment.MeFragment;
 import com.info.lin.infoproject.widget.NoScrollViewPager;
@@ -85,8 +85,8 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initView() {
-        mViewPager = (NoScrollViewPager) findViewById(R.id.main_vp);
-        mTabLayout = (TabLayout) findViewById(R.id.main_tab);
+        mViewPager = (NoScrollViewPager) findViewById(R.id.vp_main);
+        mTabLayout = (TabLayout) findViewById(R.id.tab_main);
         mTitleGroup = (RelativeLayout) findViewById(R.id.title_group);
 
         for (int i = 0; i < mTabs.size(); i++) {
@@ -106,7 +106,7 @@ public class MainActivity extends BaseActivity {
         mTabs.add(new Tab("我的", R.drawable.icon_me_on, R.drawable.icon_me_off));
 
         mFragments = new ArrayList<>();
-        mFragments.add(HomeFragment.newInstance("xx", "xx"));
+        mFragments.add(MainFragment.newInstance("xx", "xx"));
         mFragments.add(GirlFragment.newInstance("xx", "xx"));
         mFragments.add(LikeFragment.newInstance("xx", "xx"));
         mFragments.add(MeFragment.newInstance("xx", "xx"));

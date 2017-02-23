@@ -23,6 +23,7 @@ public class ImgLoadUtils {
                 .load(url)
                 .error(errorImg)
                 .override(wide, height)
+                .crossFade()
                 .fitCenter()
                 .into(view);
     }

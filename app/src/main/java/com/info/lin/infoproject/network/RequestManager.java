@@ -3,7 +3,7 @@ package com.info.lin.infoproject.network;
 import com.info.lin.infoproject.data.GankBeautyResult;
 import com.info.lin.infoproject.data.api.GankApi;
 import com.info.lin.infoproject.utils.AppUtils;
-import com.info.lin.infoproject.utils.Contants;
+import com.info.lin.infoproject.utils.Constants;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,7 +46,7 @@ public class RequestManager {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                if(request.url().toString().startsWith(Contants.GANK_BASE_URL) && response != null) {
+                if(request.url().toString().startsWith(Constants.GANK_BASE_URL) && response != null) {
                     return response.newBuilder()
                             .header("Cache-Control", "max-age=" + MAX_AGE)
                             .build();
@@ -63,7 +63,7 @@ public class RequestManager {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .client(client)
-                .baseUrl(Contants.GANK_BASE_URL)
+                .baseUrl(Constants.GANK_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();

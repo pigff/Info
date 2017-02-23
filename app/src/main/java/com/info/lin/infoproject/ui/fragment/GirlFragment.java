@@ -2,8 +2,10 @@ package com.info.lin.infoproject.ui.fragment;
 
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +18,14 @@ import com.info.lin.infoproject.data.GankBeautyResult;
 import com.info.lin.infoproject.network.CallBack;
 import com.info.lin.infoproject.network.RequestManager;
 import com.info.lin.infoproject.ui.BaseFragment;
+import com.info.lin.infoproject.utils.Constants;
 import com.info.lin.infoproject.utils.ImgLoadUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class GirlFragment extends BaseFragment {
+public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -33,6 +36,8 @@ public class GirlFragment extends BaseFragment {
     private GirlAdapter mAdapter;
     private int mPage;
     private int mNumber;
+    private SwipeRefreshLayout mRefreshLayout;
+    private boolean mIsLoad;
 
 
     public GirlFragment() {
@@ -61,25 +66,62 @@ public class GirlFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_girl, container, false);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.girl_rv);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_girl);
+        mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh_girl);
         init();
-        getData();
+        FirstGetData();
         return view;
+    }
+
+    private void FirstGetData() {
+        mIsLoad = true;
+        mRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mRefreshLayout.setRefreshing(true);
+                getData();
+            }
+        });
     }
 
     private void getData() {
         mSubscription = RequestManager.getInstance()
-                .getGirlData(20, 1, new CallBack<GankBeautyResult>() {
+                .getGirlData(mNumber, mPage, new CallBack<GankBeautyResult>() {
                     @Override
                     public void success(GankBeautyResult gankBeautyResult) {
-
-                        mAdapter.setNewData(gankBeautyResult.getResults());
+                        if (mPage == 1) {
+                            mAdapter.setNewData(gankBeautyResult.getResults());
+                        } else {
+                            mAdapter.addData(gankBeautyResult.getResults());
+                        }
+                        handleNet(true);
+                        mPage++;
                     }
 
                     @Override
                     public void error() {
+                        handleNet(false);
                     }
                 });
+    }
+
+    private void handleNet(boolean isSuccess) {
+        mIsLoad = false;
+        if (!isSuccess) {
+            if (mRefreshLayout.isRefreshing()) {
+                mRefreshLayout.setRefreshing(false);
+            }
+            if (mAdapter.isLoading()) {
+                mAdapter.loadMoreFail();
+            }
+        } else if (mPage == 1) {
+            mRefreshLayout.setRefreshing(false);
+        } else if (mPage >= Constants.MAX_PAGE || mAdapter.getData().size() % 15 != 0) {
+            Log.d("GirlFragment", "mAdapter.getData().size():" + mAdapter.getData().size());
+            mAdapter.loadMoreEnd();
+        } else {
+            mAdapter.loadMoreComplete();
+        }
     }
 
     private void init() {
@@ -91,11 +133,15 @@ public class GirlFragment extends BaseFragment {
     }
 
     private void initData() {
-        mPage = 0;
-        mNumber = 10;
+        mPage = 1;
+        mNumber = 15;
+        mIsLoad = false;
     }
 
     private void initView() {
+        mRefreshLayout.setOnRefreshListener(this);
+        mRefreshLayout.setColorSchemeResources(R.color.md_blue_900_color_code, R.color.md_light_blue_700_color_code, R.color.md_light_blue_300_color_code);
+
         mRecyclerView.setHasFixedSize(true);
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
@@ -106,6 +152,22 @@ public class GirlFragment extends BaseFragment {
     private void initAdapter() {
         List<GankBeautyResult.BeautyResult> beautyResults = new ArrayList<>();
         mAdapter = new GirlAdapter(R.layout.girl_card_item, beautyResults);
+        mAdapter.setOnLoadMoreListener(this);
+    }
+
+    @Override
+    public void onRefresh() {
+        Log.d("GirlFragment", "mPage:" + mPage);
+        mPage = 1;
+        Log.d("GirlFragment", "mPage:" + mPage);
+        getData();
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        if (!mIsLoad) {
+            getData();
+        }
     }
 
     class GirlAdapter extends BaseQuickAdapter<GankBeautyResult.BeautyResult, BaseViewHolder> {
@@ -118,7 +180,7 @@ public class GirlFragment extends BaseFragment {
         @Override
         protected void convert(BaseViewHolder helper, GankBeautyResult.BeautyResult item) {
             ImgLoadUtils.loadUrl(mContext, item.getUrl(), R.drawable.img_load_error
-                    ,(ImageView) helper.getView(R.id.iv_girl_card), 600, 600);
+                    , (ImageView) helper.getView(R.id.iv_girl_card), 600, 600);
         }
     }
 
