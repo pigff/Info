@@ -26,6 +26,26 @@ public class MultiData implements MultiItemEntity {
         this.gankItemBean = gankItemBean;
     }
 
+    public void setItemType(int itemType) {
+        this.itemType = itemType;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public GankItemBean getGankItemBean() {
+        return gankItemBean;
+    }
+
+    public void setGankItemBean(GankItemBean gankItemBean) {
+        this.gankItemBean = gankItemBean;
+    }
+
     @Override
     public int getItemType() {
         return itemType;

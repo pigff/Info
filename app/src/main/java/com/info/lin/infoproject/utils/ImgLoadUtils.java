@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.info.lin.infoproject.R;
 
 /**
  * Created by lin on 2017/2/22.
@@ -14,6 +15,14 @@ public class ImgLoadUtils {
         Glide.with(context)
                 .load(url)
                 .error(errorImg)
+                .fitCenter()
+                .into(view);
+    }
+
+    public static void loadUrl(Context context, String url, ImageView view) {
+        Glide.with(context)
+                .load(url)
+                .error(R.drawable.img_load_error)
                 .fitCenter()
                 .into(view);
     }

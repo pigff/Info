@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainBaseFragment extends BaseFragment implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
+public abstract class MainBaseFragment extends BaseFragment implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
 
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mRefreshLayout;
@@ -58,6 +58,22 @@ public class MainBaseFragment extends BaseFragment implements BaseQuickAdapter.R
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mRefreshLayout.setRefreshing(true);
+        mRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                getData();
+            }
+        });
+
+    }
+
+    private void getData() {
+
+        getDailyData();
+    }
+
+    private void getDailyData() {
         RequestManager.getInstance().getDailyData(new CallBack<GankDailyResponse>() {
             @Override
             public void success(GankDailyResponse gankDailyResponse) {
@@ -129,8 +145,8 @@ public class MainBaseFragment extends BaseFragment implements BaseQuickAdapter.R
                         }
                     }
                 }
+                mAdapter.setNewData(multiDatas);
             }
-
             @Override
             public void error() {
 
@@ -176,4 +192,6 @@ public class MainBaseFragment extends BaseFragment implements BaseQuickAdapter.R
     public void onLoadMoreRequested() {
 
     }
+
+    public abstract String getFragmentType();
 }

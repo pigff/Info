@@ -98,6 +98,7 @@
 
     <!-- grey -->
     <color name="md_grey_300_color_code">#e0e0e0</color>
+    <color name="md_grey_50_color_code">#fafafa</color>
     <color name="md_grey_800_color_code">#424242</color>
     <color name="md_grey_900_color_code">#212121</color>
 

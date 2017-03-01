@@ -11,6 +11,11 @@ public class DailyFragment extends MainBaseFragment {
     public DailyFragment() {
     }
 
+    @Override
+    public String getFragmentType() {
+        return null;
+    }
+
     public static DailyFragment newInstance() {
         return new DailyFragment();
     }

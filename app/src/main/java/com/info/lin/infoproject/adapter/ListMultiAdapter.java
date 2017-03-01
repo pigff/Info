@@ -1,11 +1,18 @@
 package com.info.lin.infoproject.adapter;
 
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.info.lin.infoproject.R;
 import com.info.lin.infoproject.data.net.MultiData;
+import com.info.lin.infoproject.utils.AppUtils;
+import com.info.lin.infoproject.utils.Constants;
+import com.info.lin.infoproject.utils.ImgLoadUtils;
+import com.info.lin.infoproject.widget.RatioImageView;
+import com.mikepenz.fontawesome_typeface_library.FontAwesome;
+import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
 
 import java.util.List;
 
@@ -17,22 +24,52 @@ public class ListMultiAdapter extends BaseMultiItemQuickAdapter<MultiData, BaseV
 
     public ListMultiAdapter(List<MultiData> data) {
         super(data);
-        addItemType(MultiData.ITEM_DATA, R.layout.recycler_item_data);
-        addItemType(MultiData.ITEM_IMG, R.layout.recycler_item_img);
-        addItemType(MultiData.ITEM_SORT_LINE, R.layout.recycler_item_sort_line);
+        addItemType(MultiData.ITEM_DATA, R.layout.recycler_data_item);
+        addItemType(MultiData.ITEM_IMG, R.layout.recycler_img_item);
+        addItemType(MultiData.ITEM_SORT_LINE, R.layout.recycler_sort_line_item);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, MultiData item) {
         switch (helper.getItemViewType()) {
             case MultiData.ITEM_DATA:
-
+                helper.setText(R.id.tv_title_data_item, item.getGankItemBean().getDesc())
+                        .setText(R.id.tv_author_data_item, item.getGankItemBean().getWho())
+                        .setText(R.id.tv_date_data_item, AppUtils.getGankDate(item.getGankItemBean().getPublishedAt()))
+                        .addOnClickListener(R.id.data_item_group);
                 break;
             case MultiData.ITEM_SORT_LINE:
-
+                String title = item.getName();
+                helper.setText(R.id.tv_sort_line_item, title);
+                TextView textView = helper.getView(R.id.tv_sort_line_item);
+                switch (title) {
+                    case Constants.TYPE_BENEFIT:
+                        AppUtils.setTextViewLeftDrawableForHeader(textView, MaterialDesignIconic.Icon.gmi_mood);
+                        break;
+                    case Constants.TYPE_ANDROID:
+                        AppUtils.setTextViewLeftDrawableForHeader(textView, MaterialDesignIconic.Icon.gmi_android);
+                        break;
+                    case Constants.TYPE_IOS:
+                        AppUtils.setTextViewLeftDrawableForHeader(textView, MaterialDesignIconic.Icon.gmi_apple);
+                        break;
+                    case Constants.TYPE_APP:
+                        AppUtils.setTextViewLeftDrawableForHeader(textView, MaterialDesignIconic.Icon.gmi_apps);
+                        break;
+                    case Constants.TYPE_REST_VIDEO:
+                        AppUtils.setTextViewLeftDrawableForHeader(textView, MaterialDesignIconic.Icon.gmi_collection_video);
+                        break;
+                    case Constants.TYPE_EXPAND_RES:
+                        AppUtils.setTextViewLeftDrawableForHeader(textView, FontAwesome.Icon.faw_location_arrow);
+                        break;
+                    default:
+                        AppUtils.setTextViewLeftDrawableForHeader(textView, MaterialDesignIconic.Icon.gmi_more);
+                        break;
+                }
                 break;
-            case MultiData.ITEM_IMG :
-
+            case MultiData.ITEM_IMG:
+                RatioImageView imageView = helper.getView(R.id.iv_recycler_item);
+                imageView.setRatio(1.5f);
+                ImgLoadUtils.loadUrl(mContext, "http://7xi8d6.com1.z0.glb.clouddn.com/2017-02-24-16906635_1749384985376684_7563808952991875072_n.jpg", imageView);
                 break;
             default:
                 break;

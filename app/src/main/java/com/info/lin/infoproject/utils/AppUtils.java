@@ -1,8 +1,14 @@
 package com.info.lin.infoproject.utils;
 
+import android.graphics.drawable.Drawable;
 import android.os.Environment;
+import android.support.v4.content.ContextCompat;
+import android.widget.TextView;
 
 import com.info.lin.infoproject.App;
+import com.info.lin.infoproject.R;
+import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.iconics.typeface.IIcon;
 
 import java.io.File;
 
@@ -19,5 +25,18 @@ public class AppUtils {
             }
         }
         return App.getInstance().getCacheDir().getPath();
+    }
+
+    public static void setTextViewLeftDrawableForHeader(TextView textView, IIcon icon){
+        Drawable drawable = new IconicsDrawable(App.getInstance())
+                .icon(icon)
+                .color(ContextCompat.getColor(App.getInstance(), R.color.md_blue_500_color_code))
+                .sizeDp(14);
+        textView.setCompoundDrawables(drawable, null, null, null);
+    }
+
+    public static String getGankDate(String date) {
+        int index = date.indexOf("T");
+        return date.substring(0, index);
     }
 }
