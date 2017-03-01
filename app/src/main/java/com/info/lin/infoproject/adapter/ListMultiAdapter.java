@@ -68,8 +68,7 @@ public class ListMultiAdapter extends BaseMultiItemQuickAdapter<MultiData, BaseV
                 break;
             case MultiData.ITEM_IMG:
                 RatioImageView imageView = helper.getView(R.id.iv_recycler_item);
-                imageView.setRatio(1.5f);
-                ImgLoadUtils.loadUrl(mContext, "http://7xi8d6.com1.z0.glb.clouddn.com/2017-02-24-16906635_1749384985376684_7563808952991875072_n.jpg", imageView);
+                ImgLoadUtils.loadAdapterUrl(mContext, item.getGankItemBean().getUrl(), imageView);
                 break;
             default:
                 break;

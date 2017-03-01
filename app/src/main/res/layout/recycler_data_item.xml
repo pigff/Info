@@ -40,7 +40,7 @@
                 android:drawableLeft="@drawable/icon_user"
                 android:drawablePadding="@dimen/dp_4"
                 android:gravity="center"
-                android:text="带马甲"
+                android:text="代码家"
                 android:textColor="@color/md_grey_300_color_code"
                 android:textSize="12sp"
                 />
@@ -54,7 +54,6 @@
                 android:drawableLeft="@drawable/icon_date"
                 android:drawablePadding="@dimen/dp_4"
                 android:gravity="center"
-                android:text="2016-12-12"
                 android:textColor="@color/md_grey_300_color_code"
                 android:textSize="12sp"
                 />

@@ -180,6 +180,8 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         protected void convert(BaseViewHolder helper, GankItemBean item) {
             ImgLoadUtils.loadUrl(mContext, item.getUrl(), R.drawable.img_load_error
                     , (ImageView) helper.getView(R.id.iv_girl_card), 600, 600);
+//            ImgLoadUtils.loadHalfAdapterUrl(mContext, item.getUrl()
+//                    , (ImageView) helper.getView(R.id.iv_girl_card));
         }
     }
 

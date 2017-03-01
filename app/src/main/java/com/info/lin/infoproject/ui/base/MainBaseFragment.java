@@ -5,15 +5,19 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.info.lin.infoproject.R;
 import com.info.lin.infoproject.adapter.ListMultiAdapter;
 import com.info.lin.infoproject.data.net.DailyDataBean;
 import com.info.lin.infoproject.data.net.GankDailyResponse;
+import com.info.lin.infoproject.data.net.GankDataResponse;
 import com.info.lin.infoproject.data.net.GankItemBean;
 import com.info.lin.infoproject.data.net.MultiData;
 import com.info.lin.infoproject.network.CallBack;
@@ -63,18 +67,43 @@ public abstract class MainBaseFragment extends BaseFragment implements BaseQuick
             @Override
             public void run() {
                 getData();
-            }
+           }
         });
 
     }
 
     private void getData() {
+        if (TextUtils.equals(getFragmentType(), Constants.TYPE_DAILY)) {
+            getDailyData();
+        } else {
+            getOtherData();
+        }
+    }
 
-        getDailyData();
+    private void getOtherData() {
+        mSubscription = RequestManager.getInstance().getGankData(getFragmentType(), mCount, mPage, new CallBack<GankDataResponse>() {
+            @Override
+            public void success(GankDataResponse gankDataResponse) {
+                List<MultiData> multiDatas = new ArrayList<MultiData>();
+                List<GankItemBean> results = gankDataResponse.getResults();
+                if (results != null) {
+                    for(GankItemBean gankItemBean : results) {
+                        multiDatas.add(new MultiData(MultiData.ITEM_DATA, gankItemBean));
+                    }
+                }
+                mAdapter.setNewData(multiDatas);
+                mRefreshLayout.setRefreshing(false);
+            }
+
+            @Override
+            public void error() {
+
+            }
+        });
     }
 
     private void getDailyData() {
-        RequestManager.getInstance().getDailyData(new CallBack<GankDailyResponse>() {
+        mSubscription = RequestManager.getInstance().getDailyData(new CallBack<GankDailyResponse>() {
             @Override
             public void success(GankDailyResponse gankDailyResponse) {
                 DailyDataBean result = gankDailyResponse.getResult();
@@ -145,7 +174,8 @@ public abstract class MainBaseFragment extends BaseFragment implements BaseQuick
                         }
                     }
                 }
-                mAdapter.setNewData(multiDatas);
+                mAdapter.updateList(multiDatas);
+                mRefreshLayout.setRefreshing(false);
             }
             @Override
             public void error() {
@@ -160,6 +190,24 @@ public abstract class MainBaseFragment extends BaseFragment implements BaseQuick
         initAdapter();
 
         initView();
+
+        initListener();
+    }
+
+    private void initListener() {
+        mRecyclerView.addOnItemTouchListener(new OnItemChildClickListener() {
+            @Override
+            public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                MultiData data = ((MultiData) adapter.getItem(position));
+                switch (adapter.getItemViewType(position)) {
+                    case MultiData.ITEM_DATA:
+                        Toast.makeText(getActivity(), data.getGankItemBean().getUrl() + data.getGankItemBean().getDesc(), Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
 
     private void initData() {
@@ -172,7 +220,6 @@ public abstract class MainBaseFragment extends BaseFragment implements BaseQuick
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mAdapter);
-        mRefreshLayout.setEnabled(false);
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setColorSchemeResources(R.color.md_blue_900_color_code, R.color.md_light_blue_700_color_code, R.color.md_light_blue_300_color_code);
     }
@@ -180,12 +227,13 @@ public abstract class MainBaseFragment extends BaseFragment implements BaseQuick
     private void initAdapter() {
         List<MultiData> datas = new ArrayList<>();
         mAdapter = new ListMultiAdapter(datas);
-        mAdapter.setOnLoadMoreListener(this);
+//        mAdapter.setOnLoadMoreListener(this);
     }
 
     @Override
     public void onRefresh() {
-
+        mPage = 1;
+        getData();
     }
 
     @Override
