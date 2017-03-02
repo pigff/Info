@@ -47,6 +47,27 @@ public class MultiData implements MultiItemEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        MultiData data = (MultiData) o;
+
+        if (itemType != data.itemType) return false;
+        if (name != null ? !name.equals(data.name) : data.name != null) return false;
+        return gankItemBean != null ? gankItemBean.equals(data.gankItemBean) : data.gankItemBean == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = itemType;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (gankItemBean != null ? gankItemBean.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public int getItemType() {
         return itemType;
     }

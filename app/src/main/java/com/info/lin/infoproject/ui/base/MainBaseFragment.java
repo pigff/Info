@@ -1,15 +1,16 @@
 package com.info.lin.infoproject.ui.base;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
@@ -22,6 +23,7 @@ import com.info.lin.infoproject.data.net.GankItemBean;
 import com.info.lin.infoproject.data.net.MultiData;
 import com.info.lin.infoproject.network.CallBack;
 import com.info.lin.infoproject.network.RequestManager;
+import com.info.lin.infoproject.ui.WebContentActivity;
 import com.info.lin.infoproject.utils.Constants;
 
 import java.util.ArrayList;
@@ -30,12 +32,16 @@ import java.util.List;
 
 public abstract class MainBaseFragment extends BaseFragment implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
 
+    private static final String TAG = "MainBaseFragment";
+
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mRefreshLayout;
     private ListMultiAdapter mAdapter;
     private boolean mIsLoad;
     private int mCount;
     private int mPage;
+    private boolean mIsRefresh;
+    private boolean mIsLoadMore;
 
     public MainBaseFragment() {
     }
@@ -63,13 +69,13 @@ public abstract class MainBaseFragment extends BaseFragment implements BaseQuick
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mRefreshLayout.setRefreshing(true);
+        mIsRefresh = true;
         mRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
                 getData();
-           }
+            }
         });
-
     }
 
     private void getData() {
@@ -81,18 +87,32 @@ public abstract class MainBaseFragment extends BaseFragment implements BaseQuick
     }
 
     private void getOtherData() {
-        mSubscription = RequestManager.getInstance().getGankData(getFragmentType(), mCount, mPage, new CallBack<GankDataResponse>() {
+        mSubscription = RequestManager.getInstance().getGankData(getFragmentType(), mCount, ++mPage, new CallBack<GankDataResponse>() {
             @Override
             public void success(GankDataResponse gankDataResponse) {
                 List<MultiData> multiDatas = new ArrayList<MultiData>();
                 List<GankItemBean> results = gankDataResponse.getResults();
                 if (results != null) {
-                    for(GankItemBean gankItemBean : results) {
+                    for (GankItemBean gankItemBean : results) {
                         multiDatas.add(new MultiData(MultiData.ITEM_DATA, gankItemBean));
                     }
                 }
-                mAdapter.setNewData(multiDatas);
-                mRefreshLayout.setRefreshing(false);
+                if (mIsRefresh) {
+                    mAdapter.updateList(multiDatas);
+                    mRefreshLayout.setRefreshing(false);
+                    mIsRefresh = false;
+                }
+                if (mIsLoadMore) {
+                    mPage++;
+                    mAdapter.addData(multiDatas);
+                    if (multiDatas.size() < mCount) {
+                        mAdapter.loadMoreEnd();
+                    } else {
+                        mAdapter.loadMoreComplete();
+                    }
+                    mIsLoadMore = false;
+                }
+                Log.d(TAG, "mAdapter.getData().size():" + mAdapter.getData().size());
             }
 
             @Override
@@ -174,9 +194,14 @@ public abstract class MainBaseFragment extends BaseFragment implements BaseQuick
                         }
                     }
                 }
-                mAdapter.updateList(multiDatas);
-                mRefreshLayout.setRefreshing(false);
+                if (mIsRefresh) {
+                    mAdapter.updateList(multiDatas);
+                    mRefreshLayout.setRefreshing(false);
+                    mIsRefresh = false;
+                }
+                Log.d(TAG, "mAdapter.getData().size():" + mAdapter.getData().size());
             }
+
             @Override
             public void error() {
 
@@ -201,7 +226,8 @@ public abstract class MainBaseFragment extends BaseFragment implements BaseQuick
                 MultiData data = ((MultiData) adapter.getItem(position));
                 switch (adapter.getItemViewType(position)) {
                     case MultiData.ITEM_DATA:
-                        Toast.makeText(getActivity(), data.getGankItemBean().getUrl() + data.getGankItemBean().getDesc(), Toast.LENGTH_SHORT).show();
+                        Intent intent2Web = WebContentActivity.newInstance(getActivity(), data.getGankItemBean());
+                        startActivity(intent2Web);
                         break;
                     default:
                         break;
@@ -212,8 +238,10 @@ public abstract class MainBaseFragment extends BaseFragment implements BaseQuick
 
     private void initData() {
         mIsLoad = false;
-        mCount = 15;
-        mPage = 1;
+        mIsRefresh = false;
+        mIsLoadMore = false;
+        mCount = 10;
+        mPage = 0;
     }
 
     private void initView() {
@@ -227,19 +255,31 @@ public abstract class MainBaseFragment extends BaseFragment implements BaseQuick
     private void initAdapter() {
         List<MultiData> datas = new ArrayList<>();
         mAdapter = new ListMultiAdapter(datas);
-//        mAdapter.setOnLoadMoreListener(this);
+        if (getCanLoadMore()) {
+            mAdapter.setOnLoadMoreListener(this);
+        }
     }
 
     @Override
     public void onRefresh() {
         mPage = 1;
-        getData();
+        Log.d(TAG, "mIsLoadMore" + mIsLoadMore + "：" + "mIsRefresh" + mIsRefresh);
+        if (!mIsLoadMore && !mIsRefresh) {
+            getData();
+        }
+        mIsRefresh = true;
     }
 
     @Override
     public void onLoadMoreRequested() {
-
+        Log.d(TAG, "mIsLoadMore" + mIsLoadMore + "：" + "mIsRefresh" + mIsRefresh);
+        if (!mIsLoadMore && !mIsRefresh) {
+            getData();
+        }
+        mIsLoadMore = true;
     }
 
     public abstract String getFragmentType();
+
+    public abstract boolean getCanLoadMore();
 }

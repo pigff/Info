@@ -76,10 +76,9 @@ public class ListMultiAdapter extends BaseMultiItemQuickAdapter<MultiData, BaseV
     }
 
     public void updateList(List<MultiData> multiDatas) {
-        if (multiDatas != null && !getData().containsAll(multiDatas)) {
-            setNewData(multiDatas);
-        } else {
+        if (!(multiDatas != null && !getData().containsAll(multiDatas))) {
             Toast.makeText(mContext, mContext.getString(R.string.recent_news_notice), Toast.LENGTH_SHORT).show();
         }
+        setNewData(multiDatas);
     }
 }

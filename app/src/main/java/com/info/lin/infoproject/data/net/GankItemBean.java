@@ -1,10 +1,12 @@
 package com.info.lin.infoproject.data.net;
 
+import java.io.Serializable;
+
 /**
  * Created by lin on 2017/2/23.
  */
 
-public class GankItemBean {
+public class GankItemBean implements Serializable{
     private String _id;
     private String createdAt;
     private String desc;
@@ -100,5 +102,24 @@ public class GankItemBean {
                 ", used=" + used +
                 ", who='" + who + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GankItemBean bean = (GankItemBean) o;
+
+        if (_id != null ? !_id.equals(bean._id) : bean._id != null) return false;
+        return type != null ? type.equals(bean.type) : bean.type == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = _id != null ? _id.hashCode() : 0;
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        return result;
     }
 }

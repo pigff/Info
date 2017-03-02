@@ -18,5 +18,8 @@ public interface Constants {
     String TYPE_EXPAND_RES = "拓展资源";
     String TYPE_RECOMMEND = "瞎推荐";
 
+
+    String DATA_INTENT = "data";
+
     int MAX_PAGE = 4;
 }
