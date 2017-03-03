@@ -4,7 +4,7 @@
     android:id="@+id/toolbar_actionbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@drawable/border_bottom"
+    android:background="@drawable/border_blue_bottom"
     android:paddingBottom="2dp"
     app:titleTextColor="@color/white">
 
@@ -20,9 +20,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:ellipsize="marquee"
-        android:focusable="true"
         android:ems="10"
+        android:focusable="true"
         android:focusableInTouchMode="true"
+        android:gravity="center"
         android:marqueeRepeatLimit="marquee_forever"
         android:singleLine="true"
         android:textColor="@color/white"

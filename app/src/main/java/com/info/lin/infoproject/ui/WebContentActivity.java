@@ -36,7 +36,7 @@ public class WebContentActivity extends BaseActivity {
     }
 
     private void init() {
-        initActionBar();
+        setMdIcon(R.drawable.icon_back);
 
         Intent intent = getIntent();
         GankItemBean bean = (GankItemBean) intent.getSerializableExtra(Constants.DATA_INTENT);

@@ -79,4 +79,32 @@ public class ImgLoadUtils {
                 .into(view);
     }
 
+    public static void loadCircleUrl(Context context, String url, int errorImg, ImageView view) {
+        Glide.with(context)
+                .load(url)
+                .error(errorImg)
+                .crossFade()
+                .bitmapTransform(new GlideCircleTransform(context))
+                .into(view);
+    }
+
+    public static void loadCircleUrl(Context context, String url, int errorImg, ImageView view, int width, int height) {
+        Glide.with(context)
+                .load(url)
+                .error(errorImg)
+                .crossFade()
+                .override(width, height)
+                .bitmapTransform(new GlideCircleTransform(context))
+                .into(view);
+    }
+
+    public static void loadCircleUrl(Context context, String url, ImageView view) {
+        Glide.with(context)
+                .load(url)
+                .error(R.drawable.img_load_error)
+                .crossFade()
+                .bitmapTransform(new GlideCircleTransform(context))
+                .into(view);
+    }
+
 }

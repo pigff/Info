@@ -7,12 +7,12 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_main_fragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabBackground="@color/md_light_blue_300_color_code"
+        android:layout_height="40dp"
+        app:tabBackground="@drawable/border_white_bottom"
         app:tabMode="scrollable"
         app:tabTextColor="@color/md_grey_300_color_code"
-        app:tabSelectedTextColor="@color/white"
-        app:tabIndicatorColor="@color/md_yellow_300_color_code"/>
+        app:tabSelectedTextColor="@color/md_light_blue_300_color_code"
+        app:tabIndicatorColor="@color/md_light_blue_300_color_code"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_main_fragment"

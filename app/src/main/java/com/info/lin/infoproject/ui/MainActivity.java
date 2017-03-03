@@ -4,19 +4,25 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.info.lin.infoproject.R;
 import com.info.lin.infoproject.adapter.MainPagerAdapter;
+import com.info.lin.infoproject.adapter.ScienceDrawerAdapter;
 import com.info.lin.infoproject.ui.base.BaseActivity;
 import com.info.lin.infoproject.ui.fragment.GirlFragment;
-import com.info.lin.infoproject.ui.fragment.MainFragment;
 import com.info.lin.infoproject.ui.fragment.LikeFragment;
+import com.info.lin.infoproject.ui.fragment.MainFragment;
 import com.info.lin.infoproject.ui.fragment.MeFragment;
+import com.info.lin.infoproject.utils.ImgLoadUtils;
 import com.info.lin.infoproject.widget.NoScrollViewPager;
 
 import java.util.ArrayList;
@@ -29,7 +35,14 @@ public class MainActivity extends BaseActivity {
     private TabLayout mTabLayout;
     private NoScrollViewPager mViewPager;
     private List<Fragment> mFragments;
-    private RelativeLayout mTitleGroup;
+
+    private ScienceDrawerAdapter mScienceDrawerAdapter;
+    private List<ScienceDrawerAdapter.Item> mDrawerItems;
+    private ImageView mIvAvatar;
+    private DrawerLayout mDrawerLayout;
+    private RecyclerView mNavigationRv;
+
+    private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +54,21 @@ public class MainActivity extends BaseActivity {
     private void init() {
         initData();
 
+        initAdapter();
         initView();
 
         initListener();
     }
 
+    private void initAdapter() {
+        Log.d("MainActivity", "mDrawerItems.size():" + mDrawerItems.size());
+
+        mScienceDrawerAdapter = new ScienceDrawerAdapter(R.layout.recycler_navigation_item, mDrawerItems);
+    }
+
     private void initListener() {
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
+
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -59,11 +81,13 @@ public class MainActivity extends BaseActivity {
                     textView.setTextColor(Color.parseColor("#18d6f0"));
                 }
                 mViewPager.setCurrentItem(position, false);
-                setTitle(mTabs.get(position).getTitle());
                 if (position == 0) {
-                    mTitleGroup.setVisibility(View.GONE);
+                    setMdIcon(R.drawable.icon_menu);
+//                    getActionBarToolbar().setTitle(mTabs.get(position).getTitle());
+                    setMdTitle(mTabs.get(position).getTitle());
                 } else {
-                    mTitleGroup.setVisibility(View.VISIBLE);
+                    getActionBarToolbar().setNavigationIcon(null);
+                    setTitle(mTabs.get(position).getTitle());
                 }
             }
 
@@ -86,17 +110,29 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initView() {
+        setMdIcon(R.drawable.icon_menu);
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mNavigationRv = (RecyclerView) findViewById(R.id.rv_navigation);
+        mIvAvatar = (ImageView) findViewById(R.id.avatar_navigation);
         mViewPager = (NoScrollViewPager) findViewById(R.id.vp_main);
         mTabLayout = (TabLayout) findViewById(R.id.tab_main);
-        mTitleGroup = (RelativeLayout) findViewById(R.id.title_group);
 
         for (int i = 0; i < mTabs.size(); i++) {
             mTabLayout.addTab(mTabLayout.newTab().setCustomView(getTabView(i)));
         }
         mViewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), mFragments));
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+//        getActionBarToolbar().setTitle(mTabs.get(0).getTitle());
+        setMdTitle(mTabs.get(0).getTitle());
 
-        mTitleGroup.setVisibility(View.GONE);
+        mNavigationRv.setHasFixedSize(true);
+        mNavigationRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        mNavigationRv.setAdapter(mScienceDrawerAdapter);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, getActionBarToolbar(), R.string.drawer_open, R.string.drawer_close);
+
+        ImgLoadUtils.loadCircleUrl(this, "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=383177307,616280309&fm=23&gp=0.jpg"
+                , mIvAvatar);
     }
 
     private void initData() {
@@ -111,6 +147,11 @@ public class MainActivity extends BaseActivity {
         mFragments.add(GirlFragment.newInstance("xx", "xx"));
         mFragments.add(LikeFragment.newInstance("xx", "xx"));
         mFragments.add(MeFragment.newInstance("xx", "xx"));
+
+        mDrawerItems = new ArrayList<>();
+        mDrawerItems.add(ScienceDrawerAdapter.Item.PERSONAL);
+        mDrawerItems.add(ScienceDrawerAdapter.Item.SWITCH_SKIN);
+        mDrawerItems.add(ScienceDrawerAdapter.Item.SWITCH_MODE);
     }
 
     private View getTabView(int position) {

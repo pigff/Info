@@ -4,7 +4,7 @@
     android:id="@+id/title_group"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@drawable/border_bottom">
+    android:background="@drawable/border_blue_bottom">
 
     <ImageView
         android:id="@+id/back_title"

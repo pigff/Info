@@ -26,17 +26,25 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
     }
 
-    protected void initActionBar() {
+    protected void setMdIcon(Integer res) {
         if (getActionBarToolbar() == null) {
             return;
         }
-        mActionBarToolbar.setNavigationIcon(R.drawable.icon_left_back);
+        mActionBarToolbar.setNavigationIcon(res);
         mActionBarToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+    }
+
+    protected void setMdTitle(String title) {
+        if (getActionBarToolbar() == null) {
+            return;
+        }
+        mActionBarToolbar.setTitle(title);
+        setTitleGone();
     }
 
     protected Toolbar getActionBarToolbar() {
@@ -56,6 +64,17 @@ public class BaseActivity extends AppCompatActivity {
         }
         if (mActionBarToolbar != null) {
             ((TextView) mActionBarToolbar.findViewById(R.id.title_toolbar)).setText(title);
+            ((TextView) mActionBarToolbar.findViewById(R.id.title_toolbar)).setVisibility(View.VISIBLE);
+            mActionBarToolbar.setTitle(null);
+        }
+    }
+
+    public void setTitleGone() {
+        if (getActionBarToolbar() == null) {
+            return;
+        }
+        if (mActionBarToolbar != null) {
+            ((TextView) mActionBarToolbar.findViewById(R.id.title_toolbar)).setVisibility(View.GONE);
         }
     }
 
@@ -71,9 +90,9 @@ public class BaseActivity extends AppCompatActivity {
         }
         if (mActionBarToolbar != null) {
             ((TextView) mActionBarToolbar.findViewById(R.id.title_toolbar)).setText(title);
+            mActionBarToolbar.setTitle(null);
         }
     }
-
 
 
     @Override
