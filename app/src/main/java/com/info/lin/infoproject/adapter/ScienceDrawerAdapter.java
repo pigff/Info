@@ -28,9 +28,9 @@ public class ScienceDrawerAdapter extends BaseQuickAdapter<ScienceDrawerAdapter.
     }
 
     public enum Item {
-        PERSONAL(R.drawable.icon_personal, R.string.personal),
-        SWITCH_SKIN(R.drawable.icon_skin, R.string.switch_skin),
-        SWITCH_MODE(R.drawable.icon_mode, R.string.switch_mode);
+        PERSONAL(R.mipmap.ic_personal, R.string.personal),
+        SWITCH_SKIN(R.mipmap.ic_skin, R.string.switch_skin),
+        SWITCH_MODE(R.mipmap.ic_mode, R.string.switch_mode);
 
         public
         @DrawableRes

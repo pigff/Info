@@ -19,7 +19,7 @@ public class ImgLoadUtils {
         Glide.with(context)
                 .load(url)
                 .error(errorImg)
-                .fitCenter()
+                .centerCrop()
                 .into(view);
     }
 

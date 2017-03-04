@@ -16,6 +16,7 @@ public class GankItemBean implements Serializable{
     private String url;
     private boolean used;
     private String who;
+    private float ratio;
 
     public String get_id() {
         return _id;
@@ -87,6 +88,14 @@ public class GankItemBean implements Serializable{
 
     public void setWho(String who) {
         this.who = who;
+    }
+
+    public float getRatio() {
+        return ratio;
+    }
+
+    public void setRatio(float ratio) {
+        this.ratio = ratio;
     }
 
     @Override

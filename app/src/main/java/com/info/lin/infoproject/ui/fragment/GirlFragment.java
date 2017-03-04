@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -21,9 +20,11 @@ import com.info.lin.infoproject.network.RequestManager;
 import com.info.lin.infoproject.ui.base.BaseFragment;
 import com.info.lin.infoproject.utils.Constants;
 import com.info.lin.infoproject.utils.ImgLoadUtils;
+import com.info.lin.infoproject.widget.RatioImageView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
@@ -90,6 +91,12 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                 .getGirlData(mNumber, mPage, new CallBack<GankBeautyResponse>() {
                     @Override
                     public void success(GankBeautyResponse gankBeautyResponse) {
+                        for (GankItemBean gankItemBean : gankBeautyResponse.getResults()) {
+                            Random random = new Random();
+                            int ratioInt = random.nextInt(3);
+                            float ratioFloat = 1 - (float) ratioInt / 10 ;
+                            gankItemBean.setRatio(ratioFloat);
+                        }
                         if (mPage == 1) {
                             mAdapter.setNewData(gankBeautyResponse.getResults());
                         } else {
@@ -178,8 +185,11 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
         @Override
         protected void convert(BaseViewHolder helper, GankItemBean item) {
+            RatioImageView ratioImageView = (RatioImageView) helper.getView(R.id.iv_girl_card);
+            ratioImageView.setRatio(item.getRatio());
+//            Log.d("lalala", "item.getRatio():" + item.getRatio() + "position:" + helper.getAdapterPosition());
             ImgLoadUtils.loadUrl(mContext, item.getUrl(), R.drawable.img_load_error
-                    , (ImageView) helper.getView(R.id.iv_girl_card), 600, 600);
+                    , ratioImageView);
 //            ImgLoadUtils.loadHalfAdapterUrl(mContext, item.getUrl()
 //                    , (ImageView) helper.getView(R.id.iv_girl_card));
         }

@@ -82,7 +82,7 @@ public class MainActivity extends BaseActivity {
                 }
                 mViewPager.setCurrentItem(position, false);
                 if (position == 0) {
-                    setMdIcon(R.drawable.icon_menu);
+                    setMdIcon(R.mipmap.ic_menu);
 //                    getActionBarToolbar().setTitle(mTabs.get(position).getTitle());
                     setMdTitle(mTabs.get(position).getTitle());
                 } else {
@@ -110,7 +110,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initView() {
-        setMdIcon(R.drawable.icon_menu);
+        setMdIcon(R.mipmap.ic_menu);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavigationRv = (RecyclerView) findViewById(R.id.rv_navigation);
@@ -137,10 +137,10 @@ public class MainActivity extends BaseActivity {
 
     private void initData() {
         mTabs = new ArrayList<>();
-        mTabs.add(new Tab("技术资讯", R.drawable.icon_info_on, R.drawable.icon_info_off));
-        mTabs.add(new Tab("meizhi", R.drawable.icon_girl_on, R.drawable.icon_girl_off));
-        mTabs.add(new Tab("喜欢", R.drawable.icon_like_on, R.drawable.icon_like_off));
-        mTabs.add(new Tab("我的", R.drawable.icon_me_on, R.drawable.icon_me_off));
+        mTabs.add(new Tab("技术资讯", R.mipmap.ic_info_on, R.mipmap.ic_info_off));
+        mTabs.add(new Tab("meizhi", R.mipmap.ic_girl_on, R.mipmap.ic_girl_off));
+        mTabs.add(new Tab("喜欢", R.mipmap.ic_like_on, R.mipmap.ic_like_off));
+        mTabs.add(new Tab("我的", R.mipmap.ic_me_on, R.mipmap.ic_me_off));
 
         mFragments = new ArrayList<>();
         mFragments.add(MainFragment.newInstance("xx", "xx"));

@@ -36,7 +36,7 @@ public class WebContentActivity extends BaseActivity {
     }
 
     private void init() {
-        setMdIcon(R.drawable.icon_back);
+        setMdIcon(R.mipmap.ic_back);
 
         Intent intent = getIntent();
         GankItemBean bean = (GankItemBean) intent.getSerializableExtra(Constants.DATA_INTENT);
