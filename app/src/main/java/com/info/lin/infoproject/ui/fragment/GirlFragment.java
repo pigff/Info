@@ -166,13 +166,17 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Override
     public void onRefresh() {
         mPage = 1;
-        getData();
+        if (!mIsLoad) {
+            getData();
+            mIsLoad = true;
+        }
     }
 
     @Override
     public void onLoadMoreRequested() {
         if (!mIsLoad) {
             getData();
+            mIsLoad = true;
         }
     }
 
