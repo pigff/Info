@@ -160,6 +160,7 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     private void initAdapter() {
         List<GankItemBean> gankItemBeen = new ArrayList<>();
         mAdapter = new GirlAdapter(R.layout.recycler_card_girl_item, gankItemBeen);
+        mAdapter.openLoadAnimation();
         mAdapter.setOnLoadMoreListener(this);
     }
 

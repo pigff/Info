@@ -62,7 +62,6 @@ public class MainActivity extends BaseActivity {
 
     private void initAdapter() {
         Log.d("MainActivity", "mDrawerItems.size():" + mDrawerItems.size());
-
         mScienceDrawerAdapter = new ScienceDrawerAdapter(R.layout.recycler_navigation_item, mDrawerItems);
     }
 
