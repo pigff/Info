@@ -21,7 +21,7 @@ import com.info.lin.infoproject.ui.base.BaseActivity;
 import com.info.lin.infoproject.ui.fragment.GirlFragment;
 import com.info.lin.infoproject.ui.fragment.LikeFragment;
 import com.info.lin.infoproject.ui.fragment.MainFragment;
-import com.info.lin.infoproject.ui.fragment.MeFragment;
+import com.info.lin.infoproject.ui.fragment.ZhiFragment;
 import com.info.lin.infoproject.utils.ImgLoadUtils;
 import com.info.lin.infoproject.widget.NoScrollViewPager;
 
@@ -137,15 +137,17 @@ public class MainActivity extends BaseActivity {
     private void initData() {
         mTabs = new ArrayList<>();
         mTabs.add(new Tab("技术资讯", R.mipmap.ic_info_on, R.mipmap.ic_info_off));
+        mTabs.add(new Tab("知乎", R.mipmap.ic_zhi_on, R.mipmap.ic_zhi_off));
         mTabs.add(new Tab("meizhi", R.mipmap.ic_girl_on, R.mipmap.ic_girl_off));
         mTabs.add(new Tab("喜欢", R.mipmap.ic_like_on, R.mipmap.ic_like_off));
-        mTabs.add(new Tab("我的", R.mipmap.ic_me_on, R.mipmap.ic_me_off));
+
 
         mFragments = new ArrayList<>();
         mFragments.add(MainFragment.newInstance("xx", "xx"));
+        mFragments.add(ZhiFragment.newInstance("xx", "xx"));
         mFragments.add(GirlFragment.newInstance("xx", "xx"));
         mFragments.add(LikeFragment.newInstance("xx", "xx"));
-        mFragments.add(MeFragment.newInstance("xx", "xx"));
+
 
         mDrawerItems = new ArrayList<>();
         mDrawerItems.add(ScienceDrawerAdapter.Item.PERSONAL);

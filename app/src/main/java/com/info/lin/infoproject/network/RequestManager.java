@@ -1,10 +1,14 @@
 package com.info.lin.infoproject.network;
 
+import com.info.lin.infoproject.data.api.GankApi;
+import com.info.lin.infoproject.data.api.ZhiApi;
 import com.info.lin.infoproject.data.net.DayHistoryResponse;
 import com.info.lin.infoproject.data.net.GankBeautyResponse;
 import com.info.lin.infoproject.data.net.GankDailyResponse;
 import com.info.lin.infoproject.data.net.GankDataResponse;
-import com.info.lin.infoproject.data.api.GankApi;
+import com.info.lin.infoproject.data.net.ZhiBeforeDailyResponse;
+import com.info.lin.infoproject.data.net.ZhiDailyResponse;
+import com.info.lin.infoproject.data.net.ZhiDetailResponse;
 import com.info.lin.infoproject.utils.AppUtils;
 import com.info.lin.infoproject.utils.Constants;
 
@@ -43,6 +47,7 @@ public class RequestManager {
 
     private static RequestManager sRequestManager;
     private GankApi mGankApi;
+    private final ZhiApi mZhiApi;
 
     public RequestManager() {
 
@@ -71,14 +76,22 @@ public class RequestManager {
                 .addNetworkInterceptor(interceptor)
                 .build();
 
-        Retrofit retrofit = new Retrofit.Builder()
+        Retrofit gankRetrofit = new Retrofit.Builder()
                 .client(client)
                 .baseUrl(Constants.GANK_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
 
-        mGankApi = retrofit.create(GankApi.class);
+        Retrofit zhiRetrofit = new Retrofit.Builder()
+                .client(client)
+                .baseUrl(Constants.ZHI_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+
+        mGankApi = gankRetrofit.create(GankApi.class);
+        mZhiApi = zhiRetrofit.create(ZhiApi.class);
     }
 
     public static RequestManager getInstance() {
@@ -178,4 +191,54 @@ public class RequestManager {
                 });
     }
 
+    public Subscription getZhiDailyData(final NormalCallBack<ZhiDailyResponse> callBack) {
+        return mZhiApi.getLatestDaily()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ZhiDailyResponse>() {
+                    @Override
+                    public void call(ZhiDailyResponse zhiDailyResponse) {
+                        callBack.handle(zhiDailyResponse);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        callBack.handleError();
+                    }
+                });
+    }
+
+    public Subscription getZhiBeforeDailyData(String date, final NormalCallBack<ZhiBeforeDailyResponse> callBack) {
+        return mZhiApi.getBeforeDaily(date)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ZhiBeforeDailyResponse>() {
+                    @Override
+                    public void call(ZhiBeforeDailyResponse zhiBeforeDailyResponse) {
+                        callBack.handle(zhiBeforeDailyResponse);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        callBack.handleError();
+                    }
+                });
+    }
+
+    public Subscription getZhiDetailedStory(int storyId, final NormalCallBack<ZhiDetailResponse> callBack) {
+        return mZhiApi.getStoryContent(storyId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ZhiDetailResponse>() {
+                    @Override
+                    public void call(ZhiDetailResponse zhiDetailResponse) {
+                        callBack.handle(zhiDetailResponse);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        callBack.handleError();
+                    }
+                });
+    }
 }

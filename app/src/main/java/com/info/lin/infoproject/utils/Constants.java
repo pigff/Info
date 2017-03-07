@@ -6,6 +6,7 @@ package com.info.lin.infoproject.utils;
 public interface Constants {
 
     String GANK_BASE_URL = "http://gank.io/api/";
+    String ZHI_BASE_URL = "http://news-at.zhihu.com/api/4/";
 
     //gank type
     String TYPE_ANDROID = "Android";
