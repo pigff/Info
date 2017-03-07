@@ -23,4 +23,5 @@ public interface Constants {
     String DATA_INTENT = "data";
 
     int MAX_PAGE = 4;
+    int ZHI_MAX_PAGE = 20;
 }

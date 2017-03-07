@@ -6,6 +6,8 @@
     android:layout_height="?attr/actionBarSize"
     android:background="@drawable/border_blue_bottom"
     android:paddingBottom="2dp"
+    app:layout_collapseMode="pin"
+    app:layout_scrollFlags="scroll|exitUntilCollapsed"
     app:titleTextColor="@color/white">
 
     <ImageView

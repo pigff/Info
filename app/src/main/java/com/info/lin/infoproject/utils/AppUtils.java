@@ -1,6 +1,7 @@
 package com.info.lin.infoproject.utils;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
@@ -13,11 +14,16 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.typeface.IIcon;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by lin on 2017/2/22.
  */
 public class AppUtils {
+
 
     public static String getCacheDir() {
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) || !Environment.isExternalStorageRemovable()) {
@@ -42,15 +48,27 @@ public class AppUtils {
         return date.substring(0, index);
     }
 
-    public static int getScreenWidth() {
+    public static Point getScreenPoint() {
         WindowManager wm = (WindowManager) App.getInstance()
                 .getSystemService(Context.WINDOW_SERVICE);
-        return wm.getDefaultDisplay().getWidth();
+        Point point = new Point();
+        wm.getDefaultDisplay().getSize(point);
+        return point;
+    }
+
+    public static int getScreenWidth() {
+        return getScreenPoint().x;
     }
 
     public static int getScreenHeight() {
-        WindowManager wm = (WindowManager) App.getInstance()
-                .getSystemService(Context.WINDOW_SERVICE);
-        return wm.getDefaultDisplay().getHeight();
+        return getScreenPoint().y;
+    }
+
+    public static String getZhiData(int page) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, 1 - page);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd", Locale.CHINA);
+        Date date = calendar.getTime();
+        return simpleDateFormat.format(date);
     }
 }

@@ -2,6 +2,7 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/zhi_card_group"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:foreground="?android:attr/selectableItemBackground"
@@ -19,13 +20,12 @@
         <TextView
             android:id="@+id/tv_title_zhi_card"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_5"
+            android:layout_weight="1"
             android:textColor="@color/md_grey_900_color_code"
             android:textSize="18sp"
             android:textStyle="bold"/>
-
 
 
         <ImageView

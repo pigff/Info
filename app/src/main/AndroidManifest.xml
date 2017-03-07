@@ -22,6 +22,8 @@
         </activity>
         <activity android:name=".ui.WebContentActivity">
         </activity>
+        <activity android:name=".ui.ZhiWebActivity">
+        </activity>
     </application>
 
 </manifest>
