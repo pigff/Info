@@ -1,6 +1,7 @@
 package com.info.lin.infoproject.ui.fragment;
 
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.info.lin.infoproject.R;
@@ -18,9 +24,8 @@ import com.info.lin.infoproject.data.net.GankItemBean;
 import com.info.lin.infoproject.network.CallBack;
 import com.info.lin.infoproject.network.RequestManager;
 import com.info.lin.infoproject.ui.base.BaseFragment;
+import com.info.lin.infoproject.utils.AppUtils;
 import com.info.lin.infoproject.utils.Constants;
-import com.info.lin.infoproject.utils.ImgLoadUtils;
-import com.info.lin.infoproject.widget.RatioImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,7 +99,7 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                         for (GankItemBean gankItemBean : gankBeautyResponse.getResults()) {
                             Random random = new Random();
                             int ratioInt = random.nextInt(3);
-                            float ratioFloat = 1 - (float) ratioInt / 10 ;
+                            float ratioFloat = 1 - (float) ratioInt / 10;
                             gankItemBean.setRatio(ratioFloat);
                         }
                         if (mPage == 1) {
@@ -124,7 +129,7 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             }
         } else if (mPage == 1) {
             mRefreshLayout.setRefreshing(false);
-        } else if (mPage >= Constants.MAX_PAGE || mAdapter.getData().size() % 15 != 0) {
+        } else if (mPage >= Constants.ZHI_MAX_PAGE || mAdapter.getData().size() % 15 != 0) {
             Log.d("GirlFragment", "mAdapter.getData().size():" + mAdapter.getData().size());
             mAdapter.loadMoreEnd();
         } else {
@@ -160,7 +165,7 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     private void initAdapter() {
         List<GankItemBean> gankItemBeen = new ArrayList<>();
         mAdapter = new GirlAdapter(R.layout.recycler_card_girl_item, gankItemBeen);
-        mAdapter.openLoadAnimation();
+//        mAdapter.openLoadAnimation();
         mAdapter.setOnLoadMoreListener(this);
     }
 
@@ -189,12 +194,33 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         }
 
         @Override
-        protected void convert(BaseViewHolder helper, GankItemBean item) {
-            RatioImageView ratioImageView = (RatioImageView) helper.getView(R.id.iv_girl_card);
-            ratioImageView.setRatio(item.getRatio());
+        protected void convert(final BaseViewHolder helper, final GankItemBean item) {
+            final ImageView ratioImageView = (ImageView) helper.getView(R.id.iv_girl_card);
+//            ratioImageView.setRatio(item.getRatio());
 //            Log.d("lalala", "item.getRatio():" + item.getRatio() + "position:" + helper.getAdapterPosition());
-            ImgLoadUtils.loadUrl(mContext, item.getUrl(), R.drawable.img_load_error
-                    , ratioImageView);
+//            ImgLoadUtils.loadUrl(mContext, item.getUrl(), R.drawable.img_load_error
+//                    , ratioImageView);
+            if (item.getHeight() > 0) {
+                ViewGroup.LayoutParams layoutParams = ratioImageView.getLayoutParams();
+                layoutParams.height = item.getHeight();
+            }
+
+            Glide.with(mContext).load(item.getUrl()).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(new SimpleTarget<Bitmap>(AppUtils.getScreenWidth() / 2, AppUtils.getScreenHeight() / 2) {
+                        @Override
+                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                            if (item.getHeight() <= 0) {
+                                int width = resource.getWidth();
+                                int height = resource.getHeight();
+                                int realHeight = (AppUtils.getScreenWidth() / 2) * height / width;
+                                item.setHeight(realHeight);
+                                ViewGroup.LayoutParams lp = ratioImageView.getLayoutParams();
+                                lp.height = realHeight;
+                            }
+                            helper.setVisible(R.id.girl_card_group, true);
+                            ratioImageView.setImageBitmap(resource);
+                        }
+                    });
 //            ImgLoadUtils.loadHalfAdapterUrl(mContext, item.getUrl()
 //                    , (ImageView) helper.getView(R.id.iv_girl_card));
         }
