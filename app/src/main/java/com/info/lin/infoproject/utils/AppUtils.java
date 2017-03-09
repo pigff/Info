@@ -1,10 +1,15 @@
 package com.info.lin.infoproject.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.WindowManager;
 import android.widget.TextView;
 
@@ -70,5 +75,27 @@ public class AppUtils {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd", Locale.CHINA);
         Date date = calendar.getTime();
         return simpleDateFormat.format(date);
+    }
+
+
+    public static String getAppName() {
+        String appName = null;
+        PackageManager packageManager = null;
+        ApplicationInfo applicationInfo = null;
+        try {
+            packageManager = App.getInstance().getPackageManager();
+            applicationInfo = packageManager.getApplicationInfo(App.getInstance().getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            applicationInfo = null;
+        }
+        appName = (String) packageManager.getApplicationLabel(applicationInfo);
+        return TextUtils.isEmpty(appName) ? "" : appName;
+    }
+
+    public static void share(Activity activity, String title, String url) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, activity.getString(R.string.share_page, title, url, getAppName()));
+        activity.startActivity(Intent.createChooser(intent, activity.getString(R.string.text_share)));
     }
 }

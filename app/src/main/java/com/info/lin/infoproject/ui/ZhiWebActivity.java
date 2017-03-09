@@ -1,8 +1,10 @@
 package com.info.lin.infoproject.ui;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
@@ -16,6 +18,7 @@ import com.info.lin.infoproject.R;
 import com.info.lin.infoproject.data.net.ZhiDetailResponse;
 import com.info.lin.infoproject.network.NormalCallBack;
 import com.info.lin.infoproject.network.RequestManager;
+import com.info.lin.infoproject.utils.AppUtils;
 import com.info.lin.infoproject.utils.Constants;
 import com.info.lin.infoproject.utils.HtmlUtil;
 import com.info.lin.infoproject.utils.ImgLoadUtils;
@@ -28,6 +31,7 @@ public class ZhiWebActivity extends AppCompatActivity {
     private TextView mDetailBarCopyright;
     private FrameLayout mContainer;
     private WebView mWebView;
+    private ZhiDetailResponse mResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +45,12 @@ public class ZhiWebActivity extends AppCompatActivity {
         RequestManager.getInstance().getZhiDetailedStory(mStoryId, new NormalCallBack<ZhiDetailResponse>() {
             @Override
             public void success(ZhiDetailResponse zhiDetailResponse) {
-                mDetailBarTitle.setText(zhiDetailResponse.getTitle());
-                mDetailBarCopyright.setText(zhiDetailResponse.getImage_source());
-                String htmlData = HtmlUtil.createHtmlData(zhiDetailResponse.getBody(), zhiDetailResponse.getCss(), zhiDetailResponse.getJs());
+                mResponse = zhiDetailResponse;
+                mDetailBarTitle.setText(mResponse.getTitle());
+                mDetailBarCopyright.setText(mResponse.getImage_source());
+                String htmlData = HtmlUtil.createHtmlData(mResponse.getBody(), mResponse.getCss(), mResponse.getJs());
                 mWebView.loadData(htmlData, HtmlUtil.MIME_TYPE, HtmlUtil.ENCODING);
-                ImgLoadUtils.loadUrl(ZhiWebActivity.this, zhiDetailResponse.getImage(), mDetailBarImg);
+                ImgLoadUtils.loadUrl(ZhiWebActivity.this, mResponse.getImage(), mDetailBarImg);
             }
 
             @Override
@@ -62,6 +67,8 @@ public class ZhiWebActivity extends AppCompatActivity {
 
     private void initView() {
         initToolbar();
+
+
         mDetailBarImg = (ImageView) findViewById(R.id.detail_bar_image);
         mDetailBarTitle = (TextView) findViewById(R.id.detail_bar_title);
         mDetailBarCopyright = (TextView) findViewById(R.id.detail_bar_copyright);
@@ -77,7 +84,7 @@ public class ZhiWebActivity extends AppCompatActivity {
         mWebView.getSettings().setDomStorageEnabled(true);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-        mWebView.setWebViewClient(new WebViewClient(){
+        mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
@@ -94,6 +101,22 @@ public class ZhiWebActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        toolbar.inflateMenu(R.menu.menu_web);
+        toolbar.setOverflowIcon(ContextCompat.getDrawable(this, R.mipmap.ic_actionbar_menu_overflow));
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int menuId = item.getItemId();
+                switch (menuId) {
+                    case R.id.action_share_model:
+                        if (mResponse != null) {
+                            AppUtils.share(ZhiWebActivity.this, mResponse.getTitle(), mResponse.getShare_url());
+                        }
+                        break;
+                }
+                return true;
             }
         });
     }

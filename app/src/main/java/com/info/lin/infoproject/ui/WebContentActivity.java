@@ -3,7 +3,11 @@ package com.info.lin.infoproject.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -17,6 +21,7 @@ import android.widget.LinearLayout;
 import com.info.lin.infoproject.R;
 import com.info.lin.infoproject.data.net.GankItemBean;
 import com.info.lin.infoproject.ui.base.BaseActivity;
+import com.info.lin.infoproject.utils.AppUtils;
 import com.info.lin.infoproject.utils.Constants;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -36,14 +41,30 @@ public class WebContentActivity extends BaseActivity {
     }
 
     private void init() {
-        setMdIcon(R.mipmap.ic_back);
-
         Intent intent = getIntent();
-        GankItemBean bean = (GankItemBean) intent.getSerializableExtra(Constants.DATA_INTENT);
-
-        if (bean != null) {
-            setTitle(bean.getDesc());
+        final GankItemBean bean = (GankItemBean) intent.getSerializableExtra(Constants.DATA_INTENT);
+        if (bean == null) {
+            finish();
+            return;
         }
+        setTitle(bean.getDesc());
+        setMdIcon(R.mipmap.ic_back);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
+        setSupportActionBar(toolbar);
+        toolbar.setOverflowIcon(ContextCompat.getDrawable(this, R.mipmap.ic_actionbar_menu_overflow));
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int menuId = item.getItemId();
+                switch (menuId) {
+                    case R.id.action_share_model:
+                        AppUtils.share(WebContentActivity.this, bean.getDesc(), bean.getUrl());
+                        break;
+                }
+                return true;
+            }
+        });
 
 
         mContainer = (FrameLayout) findViewById(R.id.web_content_container);
@@ -119,5 +140,11 @@ public class WebContentActivity extends BaseActivity {
         }
         mContainer.removeAllViews();
         super.onDestroy();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_web, menu);
+        return true;
     }
 }

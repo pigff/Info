@@ -12,4 +12,7 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="user_email">androiddevzf@163.com</string>
+
+    <string name="share_page">「%1$s」:%2$1s (shared from @%3$s App) </string>
+    <string name="text_share">Share</string>
 </resources>
