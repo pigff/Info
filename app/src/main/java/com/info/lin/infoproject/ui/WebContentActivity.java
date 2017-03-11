@@ -50,7 +50,6 @@ public class WebContentActivity extends BaseActivity {
         setTitle(bean.getDesc());
         setMdIcon(R.mipmap.ic_back);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
-        setSupportActionBar(toolbar);
         toolbar.setOverflowIcon(ContextCompat.getDrawable(this, R.mipmap.ic_actionbar_menu_overflow));
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {

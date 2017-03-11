@@ -7,6 +7,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
@@ -97,5 +98,13 @@ public class AppUtils {
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_TEXT, activity.getString(R.string.share_page, title, url, getAppName()));
         activity.startActivity(Intent.createChooser(intent, activity.getString(R.string.text_share)));
+    }
+
+    public static void shareImage(Context context, Uri uri, String title) {
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        shareIntent.setType("image/jpeg");
+        context.startActivity(Intent.createChooser(shareIntent, title));
     }
 }

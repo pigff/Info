@@ -24,6 +24,8 @@
         </activity>
         <activity android:name=".ui.ZhiWebActivity">
         </activity>
+        <activity android:name=".ui.MeizhiPicActivity">
+        </activity>
     </application>
 
 </manifest>

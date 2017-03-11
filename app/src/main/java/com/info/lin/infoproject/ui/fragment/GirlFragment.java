@@ -1,8 +1,11 @@
 package com.info.lin.infoproject.ui.fragment;
 
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -18,11 +21,13 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.info.lin.infoproject.R;
 import com.info.lin.infoproject.data.net.GankBeautyResponse;
 import com.info.lin.infoproject.data.net.GankItemBean;
 import com.info.lin.infoproject.network.CallBack;
 import com.info.lin.infoproject.network.RequestManager;
+import com.info.lin.infoproject.ui.MeizhiPicActivity;
 import com.info.lin.infoproject.ui.base.BaseFragment;
 import com.info.lin.infoproject.utils.AppUtils;
 import com.info.lin.infoproject.utils.Constants;
@@ -77,7 +82,26 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh_girl);
         init();
         FirstGetData();
+        initListener();
         return view;
+    }
+
+    private void initListener() {
+        mRecyclerView.addOnItemTouchListener(new OnItemChildClickListener() {
+            @Override
+            public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent2Pic = new Intent(getActivity(), MeizhiPicActivity.class);
+                intent2Pic.putExtra(Constants.DATA_INTENT, ((GankItemBean) adapter.getItem(position)).getUrl());
+                ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        getActivity(), view, MeizhiPicActivity.TRANSIT_PIC);
+                try {
+                    ActivityCompat.startActivity(getActivity(), intent2Pic, optionsCompat.toBundle());
+                } catch (IllegalArgumentException e) {
+                    e.printStackTrace();
+                    startActivity(intent2Pic);
+                }
+            }
+        });
     }
 
     private void FirstGetData() {
@@ -195,11 +219,12 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
         @Override
         protected void convert(final BaseViewHolder helper, final GankItemBean item) {
+            helper.addOnClickListener(R.id.iv_girl_card);
             final ImageView ratioImageView = (ImageView) helper.getView(R.id.iv_girl_card);
 //            ratioImageView.setRatio(item.getRatio());
 //            Log.d("lalala", "item.getRatio():" + item.getRatio() + "position:" + helper.getAdapterPosition());
-//            ImgLoadUtils.loadUrl(mContext, item.getUrl(), R.drawable.img_load_error
 //                    , ratioImageView);
+//            ImgLoadUtils.loadUrl(mContext, item.getUrl(), R.drawable.img_load_error
             if (item.getHeight() > 0) {
                 ViewGroup.LayoutParams layoutParams = ratioImageView.getLayoutParams();
                 layoutParams.height = item.getHeight();
