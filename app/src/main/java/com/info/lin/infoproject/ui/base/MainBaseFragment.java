@@ -61,7 +61,6 @@ public abstract class MainBaseFragment extends BaseFragment implements BaseQuick
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh_main_fragment);
 
         init();
-
         return view;
     }
 

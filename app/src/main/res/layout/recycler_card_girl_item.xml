@@ -5,8 +5,7 @@
     android:id="@+id/girl_card_group"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_card"
-    android:visibility="gone">
+    android:background="@drawable/bg_card">
 
     <ImageView
         android:id="@+id/iv_girl_card"

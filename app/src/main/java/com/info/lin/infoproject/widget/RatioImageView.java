@@ -1,11 +1,11 @@
 package com.info.lin.infoproject.widget;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.widget.ImageView;
 
-public class RatioImageView extends ImageView {
+public class RatioImageView extends AppCompatImageView {
 
     private float mRatio = 0;
 
@@ -27,7 +27,6 @@ public class RatioImageView extends ImageView {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-
         if(mRatio > 0) {
             int width = MeasureSpec.getSize(widthMeasureSpec);
             int height = MeasureSpec.getSize(heightMeasureSpec);

@@ -33,8 +33,9 @@ import com.info.lin.infoproject.utils.AppUtils;
 import com.info.lin.infoproject.utils.Constants;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
+import java.util.Map;
 
 
 public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
@@ -120,12 +121,7 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                 .getGirlData(mNumber, mPage, new CallBack<GankBeautyResponse>() {
                     @Override
                     public void success(GankBeautyResponse gankBeautyResponse) {
-                        for (GankItemBean gankItemBean : gankBeautyResponse.getResults()) {
-                            Random random = new Random();
-                            int ratioInt = random.nextInt(3);
-                            float ratioFloat = 1 - (float) ratioInt / 10;
-                            gankItemBean.setRatio(ratioFloat);
-                        }
+
                         if (mPage == 1) {
                             mAdapter.setNewData(gankBeautyResponse.getResults());
                         } else {
@@ -180,10 +176,19 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         mRefreshLayout.setColorSchemeResources(R.color.md_blue_900_color_code, R.color.md_light_blue_700_color_code, R.color.md_light_blue_300_color_code);
 
         mRecyclerView.setHasFixedSize(true);
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        final StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
+
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                layoutManager.invalidateSpanAssignments();
+            }
+        });
+
     }
 
     private void initAdapter() {
@@ -210,44 +215,46 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         }
     }
 
-    class GirlAdapter extends BaseQuickAdapter<GankItemBean, BaseViewHolder> {
+    private class GirlAdapter extends BaseQuickAdapter<GankItemBean, BaseViewHolder> {
 
+        private int[] colrSrc = {R.color.md_light_blue_700_color_code, R.color.md_yellow_300_color_code, R.color.md_light_blue_300_color_code};
+        private Map<String, Integer> mMap;
 
         GirlAdapter(int layoutResId, List<GankItemBean> data) {
             super(layoutResId, data);
+            mMap = new HashMap<>();
         }
 
         @Override
         protected void convert(final BaseViewHolder helper, final GankItemBean item) {
             helper.addOnClickListener(R.id.iv_girl_card);
-            final ImageView ratioImageView = (ImageView) helper.getView(R.id.iv_girl_card);
-//            ratioImageView.setRatio(item.getRatio());
-//            Log.d("lalala", "item.getRatio():" + item.getRatio() + "position:" + helper.getAdapterPosition());
-//                    , ratioImageView);
-//            ImgLoadUtils.loadUrl(mContext, item.getUrl(), R.drawable.img_load_error
-            if (item.getHeight() > 0) {
-                ViewGroup.LayoutParams layoutParams = ratioImageView.getLayoutParams();
-                layoutParams.height = item.getHeight();
-            }
-
-            Glide.with(mContext).load(item.getUrl()).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(new SimpleTarget<Bitmap>(AppUtils.getScreenWidth() / 2, AppUtils.getScreenHeight() / 2) {
-                        @Override
-                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                            if (item.getHeight() <= 0) {
+            final ImageView imageView =  helper.getView(R.id.iv_girl_card);
+            if (!mMap.containsKey(item.get_id())) {
+                Glide.with(mContext).load(item.getUrl()).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(new SimpleTarget<Bitmap>(AppUtils.getScreenWidth() / 2, AppUtils.getScreenHeight() / 2) {
+                            @Override
+                            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                                 int width = resource.getWidth();
                                 int height = resource.getHeight();
                                 int realHeight = (AppUtils.getScreenWidth() / 2) * height / width;
-                                item.setHeight(realHeight);
-                                ViewGroup.LayoutParams lp = ratioImageView.getLayoutParams();
+                                mMap.put(item.get_id(), realHeight);
+                                ViewGroup.LayoutParams lp = imageView.getLayoutParams();
                                 lp.height = realHeight;
+                                imageView.setLayoutParams(lp);
+//
                             }
-                            helper.setVisible(R.id.girl_card_group, true);
-                            ratioImageView.setImageBitmap(resource);
-                        }
-                    });
-//            ImgLoadUtils.loadHalfAdapterUrl(mContext, item.getUrl()
-//                    , (ImageView) helper.getView(R.id.iv_girl_card));
+                        });
+            } else {
+                ViewGroup.LayoutParams lp = imageView.getLayoutParams();
+                lp.height = mMap.get(item.get_id());
+                imageView.setLayoutParams(lp);
+
+            }
+            Glide.with(mContext)
+                    .load(item.getUrl())
+                    .dontAnimate()
+                    .placeholder(colrSrc[helper.getAdapterPosition() % 3])
+                    .into(imageView);
         }
     }
 
