@@ -7,6 +7,8 @@
     <color name="white">#ffff</color>
     <color name="black">#000</color>
 
+    <color name="color_dialog_black_bg">#4b0f1421</color>
+
     <!-- red -->
     <color name="md_red_200_color_code">#f69988</color>
     <color name="md_red_300_color_code">#f36c60</color>

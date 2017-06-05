@@ -1,7 +1,7 @@
 package com.info.lin.infoproject.ui.fragment;
 
 import com.info.lin.infoproject.ui.base.MainBaseFragment;
-import com.info.lin.infoproject.utils.Constants;
+import com.info.lin.infoproject.utils.constant.Constants;
 
 /**
  * Created by lin on 2017/2/23.

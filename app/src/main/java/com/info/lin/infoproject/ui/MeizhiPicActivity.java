@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.info.lin.infoproject.R;
 import com.info.lin.infoproject.ui.base.BaseActivity;
-import com.info.lin.infoproject.utils.Constants;
+import com.info.lin.infoproject.utils.constant.Constants;
 import com.info.lin.infoproject.utils.ImgLoadUtils;
 
 import uk.co.senab.photoview.PhotoView;

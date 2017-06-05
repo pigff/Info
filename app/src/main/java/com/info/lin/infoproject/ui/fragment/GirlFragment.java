@@ -30,7 +30,7 @@ import com.info.lin.infoproject.network.RequestManager;
 import com.info.lin.infoproject.ui.MeizhiPicActivity;
 import com.info.lin.infoproject.ui.base.BaseFragment;
 import com.info.lin.infoproject.utils.AppUtils;
-import com.info.lin.infoproject.utils.Constants;
+import com.info.lin.infoproject.utils.constant.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -8,7 +8,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.info.lin.infoproject.R;
 import com.info.lin.infoproject.data.net.MultiData;
 import com.info.lin.infoproject.utils.AppUtils;
-import com.info.lin.infoproject.utils.Constants;
+import com.info.lin.infoproject.utils.constant.Constants;
 import com.info.lin.infoproject.utils.ImgLoadUtils;
 import com.info.lin.infoproject.widget.RatioImageView;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;

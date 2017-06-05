@@ -10,7 +10,7 @@ import com.info.lin.infoproject.data.net.ZhiBeforeDailyResponse;
 import com.info.lin.infoproject.data.net.ZhiDailyResponse;
 import com.info.lin.infoproject.data.net.ZhiDetailResponse;
 import com.info.lin.infoproject.utils.AppUtils;
-import com.info.lin.infoproject.utils.Constants;
+import com.info.lin.infoproject.utils.constant.Constants;
 
 import java.io.File;
 import java.io.IOException;

@@ -19,7 +19,7 @@ import com.info.lin.infoproject.data.net.ZhiDetailResponse;
 import com.info.lin.infoproject.network.NormalCallBack;
 import com.info.lin.infoproject.network.RequestManager;
 import com.info.lin.infoproject.utils.AppUtils;
-import com.info.lin.infoproject.utils.Constants;
+import com.info.lin.infoproject.utils.constant.Constants;
 import com.info.lin.infoproject.utils.HtmlUtil;
 import com.info.lin.infoproject.utils.ImgLoadUtils;
 

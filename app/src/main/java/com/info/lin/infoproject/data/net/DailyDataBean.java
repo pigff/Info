@@ -1,7 +1,7 @@
 package com.info.lin.infoproject.data.net;
 
 import com.google.gson.annotations.SerializedName;
-import com.info.lin.infoproject.utils.Constants;
+import com.info.lin.infoproject.utils.constant.Constants;
 
 import java.util.List;
 

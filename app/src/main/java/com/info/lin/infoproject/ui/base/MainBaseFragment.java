@@ -24,7 +24,7 @@ import com.info.lin.infoproject.data.net.MultiData;
 import com.info.lin.infoproject.network.CallBack;
 import com.info.lin.infoproject.network.RequestManager;
 import com.info.lin.infoproject.ui.WebContentActivity;
-import com.info.lin.infoproject.utils.Constants;
+import com.info.lin.infoproject.utils.constant.Constants;
 
 import java.util.ArrayList;
 import java.util.List;

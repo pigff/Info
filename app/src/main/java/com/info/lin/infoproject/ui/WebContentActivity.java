@@ -22,7 +22,7 @@ import com.info.lin.infoproject.R;
 import com.info.lin.infoproject.data.net.GankItemBean;
 import com.info.lin.infoproject.ui.base.BaseActivity;
 import com.info.lin.infoproject.utils.AppUtils;
-import com.info.lin.infoproject.utils.Constants;
+import com.info.lin.infoproject.utils.constant.Constants;
 import com.wang.avi.AVLoadingIndicatorView;
 
 public class WebContentActivity extends BaseActivity {

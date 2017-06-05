@@ -24,7 +24,7 @@ import com.info.lin.infoproject.network.NormalCallBack;
 import com.info.lin.infoproject.network.RequestManager;
 import com.info.lin.infoproject.ui.ZhiWebActivity;
 import com.info.lin.infoproject.utils.AppUtils;
-import com.info.lin.infoproject.utils.Constants;
+import com.info.lin.infoproject.utils.constant.Constants;
 import com.info.lin.infoproject.utils.ImgLoadUtils;
 
 import java.util.ArrayList;

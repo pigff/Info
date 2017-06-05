@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import com.info.lin.infoproject.R;
 import com.info.lin.infoproject.ui.base.BaseFragment;
 import com.info.lin.infoproject.ui.base.MainBaseFragment;
-import com.info.lin.infoproject.utils.Constants;
+import com.info.lin.infoproject.utils.constant.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
