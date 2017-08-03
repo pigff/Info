@@ -2,7 +2,6 @@ package com.info.lin.infoproject.adapter;
 
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
-import android.util.Log;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -13,15 +12,14 @@ import java.util.List;
 /**
  * Created by lin on 2017/2/28.
  */
-public class ScienceDrawerAdapter extends BaseQuickAdapter<ScienceDrawerAdapter.Item, BaseViewHolder> {
+public class DrawerAdapter extends BaseQuickAdapter<DrawerAdapter.Item, BaseViewHolder> {
 
-    public ScienceDrawerAdapter(int layoutResId, List<Item> data) {
+    public DrawerAdapter(int layoutResId, List<Item> data) {
         super(layoutResId, data);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, Item item) {
-        Log.d("MainActivity", "xixix");
         helper.setImageResource(R.id.iv_navigation_item, item.img)
                 .setText(R.id.title_navigation_item, item.title)
                 .addOnClickListener(R.id.group_rv_navigation_item);

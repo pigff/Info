@@ -28,8 +28,6 @@ public class MainFragment extends BaseFragment {
     private String[] mTitles = {Constants.TYPE_DAILY, Constants.TYPE_ANDROID, Constants.TYPE_IOS,
                                         Constants.TYPE_WEB, Constants.TYPE_APP, Constants.TYPE_EXPAND_RES};
 
-    private String mParam1;
-    private String mParam2;
     private List<MainBaseFragment> mFragments;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
@@ -41,11 +39,9 @@ public class MainFragment extends BaseFragment {
     }
 
 
-    public static MainFragment newInstance(String param1, String param2) {
+    public static MainFragment newInstance() {
         MainFragment fragment = new MainFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -54,8 +50,6 @@ public class MainFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 

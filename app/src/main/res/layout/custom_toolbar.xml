@@ -4,7 +4,9 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:paddingBottom="2dp">
+    android:background="@color/md_light_blue_300_color_code"
+    android:paddingBottom="2dp"
+    app:titleTextColor="@color/white">
 
     <ImageView
         android:id="@+id/left_iv_toolbar"
@@ -45,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/dp_5"
-            android:textColor="@color/black_160_color_code"
+            android:textColor="@color/color_dialog_black_bg"
             />
     </LinearLayout>
 

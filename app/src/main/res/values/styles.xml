@@ -10,6 +10,9 @@
         <item name="windowActionBar">false</item>
     </style>
 
+    <style name="StatusActivityStyle" parent="AppTheme">
+    </style>
+
     <style name="AppTheme.DeepLine" parent="@style/AppTheme">
         <item name="android:background">#ffdddddd</item>
         <item name="android:layout_width">fill_parent</item>
