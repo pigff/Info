@@ -14,6 +14,7 @@ import com.info.lin.infoproject.widget.RatioImageView;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +24,7 @@ import java.util.List;
 public class ListMultiAdapter extends BaseMultiItemQuickAdapter<MultiData, BaseViewHolder> {
 
     public ListMultiAdapter(List<MultiData> data) {
-        super(data);
+        super(data == null ? new ArrayList<MultiData>() : data);
         addItemType(MultiData.ITEM_DATA, R.layout.recycler_data_item);
         addItemType(MultiData.ITEM_IMG, R.layout.recycler_img_item);
         addItemType(MultiData.ITEM_SORT_LINE, R.layout.recycler_sort_line_item);

@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.info.lin.infoproject.R;
-import com.info.lin.infoproject.ui.base.BaseFragment;
+import com.info.lin.infoproject.base.BaseFragment;
 import com.info.lin.infoproject.ui.base.MainBaseFragment;
 import com.info.lin.infoproject.utils.constant.Constants;
 

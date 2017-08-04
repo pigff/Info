@@ -17,11 +17,6 @@ public class IosFragment extends MainBaseFragment {
         return Constants.TYPE_IOS;
     }
 
-    @Override
-    public boolean getCanLoadMore() {
-        return true;
-    }
-
     public static IosFragment newInstance() {
         return new IosFragment();
     }

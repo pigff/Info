@@ -17,11 +17,6 @@ public class WebFragment extends MainBaseFragment {
         return Constants.TYPE_WEB;
     }
 
-    @Override
-    public boolean getCanLoadMore() {
-        return true;
-    }
-
     public static WebFragment newInstance() {
         return new WebFragment();
     }

@@ -13,6 +13,7 @@ import rx.Observable;
  * Created by lin on 2017/2/18.
  */
 public interface GankApi {
+
     @GET("data/福利/{number}/{page}")
     Observable<GankBeautyResponse> getBeauties(@Path("number") int number, @Path("page") int page);
 

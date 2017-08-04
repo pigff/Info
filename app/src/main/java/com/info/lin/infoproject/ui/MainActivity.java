@@ -20,8 +20,6 @@ import java.util.List;
 
 public class MainActivity extends BaseToolbarActivity {
 
-
-
     private DrawerAdapter mDrawerAdapter;
     private List<DrawerAdapter.Item> mDrawerItems;
     private ImageView mIvAvatar;

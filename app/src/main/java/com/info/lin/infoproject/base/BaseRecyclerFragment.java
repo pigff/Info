@@ -14,7 +14,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.info.lin.infoproject.R;
 import com.info.lin.infoproject.base.presenter.imp.ListPresenter;
 import com.info.lin.infoproject.base.view.IListView;
-import com.info.lin.infoproject.utils.LogUtil;
 
 import java.util.List;
 
@@ -139,7 +138,7 @@ public abstract class BaseRecyclerFragment<T, V extends BaseQuickAdapter<T, ? ex
 
     @Override
     public void loadData(List<T> data) {
-        LogUtil.d(TAG, "status: " + mStatus);
+//        LogUtil.d(TAG, "status: " + mStatus);
         if (mPageNum == 0 && data.size() == 0) {
             showEmpty();
             if (mStatus == REFRESH_STATUS) {
@@ -179,7 +178,7 @@ public abstract class BaseRecyclerFragment<T, V extends BaseQuickAdapter<T, ? ex
 
     @Override
     public void loadError() {
-        LogUtil.d(TAG, "status: " + mStatus);
+//        LogUtil.d(TAG, "status: " + mStatus);
         if (mStatus == REFRESH_STATUS) {
             finishRefresh();
             if (mPageNum == DEFAULT_PAGENUM) {

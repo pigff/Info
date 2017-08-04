@@ -17,10 +17,6 @@ public class DailyFragment extends MainBaseFragment {
         return Constants.TYPE_DAILY;
     }
 
-    @Override
-    public boolean getCanLoadMore() {
-        return false;
-    }
 
     public static DailyFragment newInstance() {
         return new DailyFragment();

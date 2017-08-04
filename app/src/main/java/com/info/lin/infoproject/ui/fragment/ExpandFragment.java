@@ -18,11 +18,6 @@ public class ExpandFragment extends MainBaseFragment {
         return Constants.TYPE_EXPAND_RES;
     }
 
-    @Override
-    public boolean getCanLoadMore() {
-        return true;
-    }
-
     public static ExpandFragment newInstance() {
         return new ExpandFragment();
     }
