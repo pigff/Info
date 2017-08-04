@@ -30,11 +30,7 @@ import java.util.List;
 
 public class LikeFragment extends BaseFragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    private String mParam1;
-    private String mParam2;
     private RecyclerView mRecyclerView;
     private List<GankItemBean> mItemBeen;
     private int mPage;
@@ -46,11 +42,9 @@ public class LikeFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-    public static LikeFragment newInstance(String param1, String param2) {
+    public static LikeFragment newInstance() {
         LikeFragment fragment = new LikeFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -59,8 +53,7 @@ public class LikeFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 

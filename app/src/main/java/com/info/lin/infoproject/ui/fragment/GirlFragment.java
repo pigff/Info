@@ -40,11 +40,6 @@ import java.util.Map;
 
 public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
     private RecyclerView mRecyclerView;
     private GirlAdapter mAdapter;
     private int mPage;
@@ -57,11 +52,9 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     }
 
 
-    public static GirlFragment newInstance(String param1, String param2) {
+    public static GirlFragment newInstance() {
         GirlFragment fragment = new GirlFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -70,8 +63,7 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 

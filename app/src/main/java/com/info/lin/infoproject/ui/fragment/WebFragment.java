@@ -17,6 +17,17 @@ public class WebFragment extends MainBaseFragment {
         return Constants.TYPE_WEB;
     }
 
+    @Override
+    protected boolean canLoadMore() {
+        return true;
+    }
+
+    @Override
+    protected boolean canRefresh() {
+        return true;
+    }
+
+
     public static WebFragment newInstance() {
         return new WebFragment();
     }

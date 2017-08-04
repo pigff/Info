@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_zhihu"
+            android:icon="@mipmap/ic_skin"
+            android:title="知乎"/>
+
+        <item
+            android:id="@+id/nav_meizhi"
+            android:icon="@mipmap/ic_skin"
+            android:title="妹纸"/>
+
+        <item
+            android:id="@+id/nav_like"
+            android:icon="@mipmap/ic_skin"
+            android:title="喜欢"/>
+
+        <item
+            android:id="@+id/nav_four"
+            android:icon="@mipmap/ic_skin"
+            android:title="一键换肤"/>
+        <item
+            android:id="@+id/nav_five"
+            android:icon="@mipmap/ic_skin"
+            android:title="一键换肤"/>
+    </group>
+</menu>

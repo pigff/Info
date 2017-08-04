@@ -18,6 +18,17 @@ public class AppFragment extends MainBaseFragment {
         return Constants.TYPE_APP;
     }
 
+    @Override
+    protected boolean canLoadMore() {
+        return true;
+    }
+
+    @Override
+    protected boolean canRefresh() {
+        return true;
+    }
+
+
     public static AppFragment newInstance() {
         return new AppFragment();
     }

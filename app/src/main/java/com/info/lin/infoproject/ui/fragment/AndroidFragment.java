@@ -17,6 +17,16 @@ public class AndroidFragment extends MainBaseFragment {
         return Constants.TYPE_ANDROID;
     }
 
+    @Override
+    protected boolean canLoadMore() {
+        return true;
+    }
+
+    @Override
+    protected boolean canRefresh() {
+        return true;
+    }
+
     public static AndroidFragment newInstance() {
         return new AndroidFragment();
     }

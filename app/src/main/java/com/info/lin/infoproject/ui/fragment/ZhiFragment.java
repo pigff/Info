@@ -30,18 +30,8 @@ import com.info.lin.infoproject.utils.ImgLoadUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ZhiFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ZhiFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
     private RecyclerView mRecyclerView;
     private List<DailyStory> mResponses;
     private ZhiAdapter mAdapter;
@@ -55,11 +45,9 @@ public class ZhiFragment extends Fragment implements SwipeRefreshLayout.OnRefres
         // Required empty public constructor
     }
 
-    public static ZhiFragment newInstance(String param1, String param2) {
+    public static ZhiFragment newInstance() {
         ZhiFragment fragment = new ZhiFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -68,8 +56,7 @@ public class ZhiFragment extends Fragment implements SwipeRefreshLayout.OnRefres
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 

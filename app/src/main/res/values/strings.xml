@@ -8,6 +8,8 @@
     <string name="personal">个人中心</string>
     <string name="switch_skin">一键换肤</string>
     <string name="switch_mode">夜间模式</string>
+    <string name="zhihu">知乎</string>
+    <string name="meizhi">妹纸</string>
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
