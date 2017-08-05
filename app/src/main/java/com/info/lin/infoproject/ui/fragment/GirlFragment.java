@@ -244,8 +244,10 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             }
             Glide.with(mContext)
                     .load(item.getUrl())
+//                    .placeholder(colrSrc[helper.getAdapterPosition() % 3])
                     .dontAnimate()
-                    .placeholder(colrSrc[helper.getAdapterPosition() % 3])
+                    .fitCenter()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(imageView);
         }
     }

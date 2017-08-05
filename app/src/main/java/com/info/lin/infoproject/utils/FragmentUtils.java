@@ -24,36 +24,36 @@ import java.util.List;
  *     desc  : Fragment相关工具类
  *
  *  function : addFragment              : 新增fragment
-               hideAddFragment          : 先隐藏后新增fragment
-               addFragments             : 新增多个fragment
-               removeFragment           : 移除fragment
-               removeToFragment         : 移除到指定fragment
-               removeFragments          : 移除同级别fragment
-               removeAllFragments       : 移除所有fragment
-               replaceFragment          : 替换fragment
-               popFragment              : 出栈fragment
-               popToFragment            : 出栈到指定fragment
-               popFragments             : 出栈同级别fragment
-               popAllFragments          : 出栈所有fragment
-               popAddFragment           : 先出栈后新增fragment
-               hideFragment             : 隐藏fragment
-               hideFragments            : 隐藏同级别fragment
-               showFragment             : 显示fragment
-               hideShowFragment         : 先隐藏后显示fragment
-               getLastAddFragment       : 获取同级别最后加入的fragment
-               getLastAddFragmentInStack: 获取栈中同级别最后加入的fragment
-               getTopShowFragment       : 获取顶层可见fragment
-               getTopShowFragmentInStack: 获取栈中顶层可见fragment
-               getFragments             : 获取同级别fragment
-               getFragmentsInStack      : 获取栈中同级别fragment
-               getAllFragments          : 获取所有fragment                 // 不知道跟上面的区别
-               getAllFragmentsInStack   : 获取栈中所有fragment             //
-               getPreFragment           : 获取目标fragment的前一个fragment
-               findFragment             : 查找fragment
-               dispatchBackPress        : 处理fragment回退键
-               setBackgroundColor       : 设置背景色
-               setBackgroundResource    : 设置背景资源
-               setBackground            : 设置背景
+ * hideAddFragment          : 先隐藏后新增fragment
+ * addFragments             : 新增多个fragment
+ * removeFragment           : 移除fragment
+ * removeToFragment         : 移除到指定fragment
+ * removeFragments          : 移除同级别fragment
+ * removeAllFragments       : 移除所有fragment
+ * replaceFragment          : 替换fragment
+ * popFragment              : 出栈fragment
+ * popToFragment            : 出栈到指定fragment
+ * popFragments             : 出栈同级别fragment
+ * popAllFragments          : 出栈所有fragment
+ * popAddFragment           : 先出栈后新增fragment
+ * hideFragment             : 隐藏fragment
+ * hideFragments            : 隐藏同级别fragment
+ * showFragment             : 显示fragment
+ * hideShowFragment         : 先隐藏后显示fragment
+ * getLastAddFragment       : 获取同级别最后加入的fragment
+ * getLastAddFragmentInStack: 获取栈中同级别最后加入的fragment
+ * getTopShowFragment       : 获取顶层可见fragment
+ * getTopShowFragmentInStack: 获取栈中顶层可见fragment
+ * getFragments             : 获取同级别fragment
+ * getFragmentsInStack      : 获取栈中同级别fragment
+ * getAllFragments          : 获取所有fragment                 // 不知道跟上面的区别
+ * getAllFragmentsInStack   : 获取栈中所有fragment             //
+ * getPreFragment           : 获取目标fragment的前一个fragment
+ * findFragment             : 查找fragment
+ * dispatchBackPress        : 处理fragment回退键
+ * setBackgroundColor       : 设置背景色
+ * setBackgroundResource    : 设置背景资源
+ * setBackground            : 设置背景
  * </pre>
  */
 public final class FragmentUtils {
@@ -62,17 +62,17 @@ public final class FragmentUtils {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
-    private static final int TYPE_ADD_FRAGMENT       = 0x01 << 0;
-    private static final int TYPE_REMOVE_FRAGMENT    = 0x01 << 1;
+    private static final int TYPE_ADD_FRAGMENT = 0x01 << 0;
+    private static final int TYPE_REMOVE_FRAGMENT = 0x01 << 1;
     private static final int TYPE_REMOVE_TO_FRAGMENT = 0x01 << 2;
-    private static final int TYPE_REPLACE_FRAGMENT   = 0x01 << 3;
-    private static final int TYPE_POP_ADD_FRAGMENT   = 0x01 << 4;
-    private static final int TYPE_HIDE_FRAGMENT      = 0x01 << 5;
-    private static final int TYPE_SHOW_FRAGMENT      = 0x01 << 6;
+    private static final int TYPE_REPLACE_FRAGMENT = 0x01 << 3;
+    private static final int TYPE_POP_ADD_FRAGMENT = 0x01 << 4;
+    private static final int TYPE_HIDE_FRAGMENT = 0x01 << 5;
+    private static final int TYPE_SHOW_FRAGMENT = 0x01 << 6;
     private static final int TYPE_HIDE_SHOW_FRAGMENT = 0x01 << 7;
 
-    private static final String ARGS_ID           = "args_id";
-    private static final String ARGS_IS_HIDE      = "args_is_hide";
+    private static final String ARGS_ID = "args_id";
+    private static final String ARGS_IS_HIDE = "args_is_hide";
     private static final String ARGS_IS_ADD_STACK = "args_is_add_stack";
 
     /**
@@ -926,7 +926,7 @@ public final class FragmentUtils {
     }
 
     static class Args {
-        int     id;
+        int id;
         boolean isHide;
         boolean isAddStack;
 
@@ -938,7 +938,7 @@ public final class FragmentUtils {
     }
 
     public static class SharedElement {
-        View   sharedElement;
+        View sharedElement;
         String name;
 
         public SharedElement(View sharedElement, String name) {
@@ -948,7 +948,7 @@ public final class FragmentUtils {
     }
 
     static class FragmentNode {
-        Fragment           fragment;
+        Fragment fragment;
         List<FragmentNode> next;
 
         public FragmentNode(Fragment fragment, List<FragmentNode> next) {

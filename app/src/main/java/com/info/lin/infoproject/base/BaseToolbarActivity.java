@@ -53,7 +53,7 @@ public abstract class BaseToolbarActivity<P extends BasePresenter> extends MvpAc
         }
     }
 
-    protected void setTitle(String title) {
+    protected void  setTitle(String title) {
         mToolbarTitle.setText(title);
     }
 
