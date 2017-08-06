@@ -103,22 +103,17 @@ public class MainActivity extends BaseToolbarActivity {
     }
 
     private void addFragment(Fragment srcFragment) {
-        // 获取当前回退栈中的Fragment个数
         FragmentManager fragmentManager = getSupportFragmentManager();
         // 判断当前回退栈中的fragment个数,
         if (fragmentManager.getBackStackEntryCount() > 0) {
-            // 立即回退一步
-//            fragmentManager.popBackStackImmediate();
-            // 获取当前退到了哪一个Fragment上,重新获取当前的Fragment回退栈中的个数
             FragmentManager.BackStackEntry backStack = fragmentManager
                     .getBackStackEntryAt(fragmentManager
                             .getBackStackEntryCount() - 1);
             // 获取当前栈顶的Fragment的标记值
             String tag = backStack.getName();
             LogUtil.d(TAG, "tag: " + tag);
-            // 判断当前是哪一个标记
+            // 如果点击的当前fragment则只是关闭抽屉栏
             if (srcFragment.getClass().getName().equals(tag)) {
-                // 设置首页选中
                 return;
 
             }
@@ -149,6 +144,7 @@ public class MainActivity extends BaseToolbarActivity {
             setTitle("干货gank.io");
             getSupportFragmentManager().popBackStackImmediate();
             mNavigationView.setCheckedItem(R.id.nav_main);
+            mDrawerLayout.closeDrawers();
         } else {
             super.onBackPressed();
         }

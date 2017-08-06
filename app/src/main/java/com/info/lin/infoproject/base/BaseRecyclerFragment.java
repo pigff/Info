@@ -65,7 +65,7 @@ public abstract class BaseRecyclerFragment<T, V extends BaseQuickAdapter<T, ? ex
             throw new IllegalStateException(
                     "The subclass of ToolbarActivity must contain recyclerview and refreshLayout.");
         }
-        initRecyclerView();
+            initRecyclerView();
 
         if (canRefresh()) {
             initRefreshLayout();
@@ -232,6 +232,14 @@ public abstract class BaseRecyclerFragment<T, V extends BaseQuickAdapter<T, ? ex
         return new LinearLayoutManager(getActivity());
     }
 
+    protected int getStatus() {
+        return mStatus;
+    }
+
+    protected void setStatus(int status) {
+        mStatus = status;
+    }
+
 
 //    protected void loadMoreData(){
 //
@@ -240,6 +248,8 @@ public abstract class BaseRecyclerFragment<T, V extends BaseQuickAdapter<T, ? ex
 //    protected void refreshData() {
 //
 //    }
+
+
 
     protected void loadData(int pageNum) {
     }

@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.info.lin.infoproject.data.api.GankApi;
 import com.info.lin.infoproject.data.api.ZhiApi;
 import com.info.lin.infoproject.data.net.DailyDataBean;
+import com.info.lin.infoproject.data.net.DailyStory;
 import com.info.lin.infoproject.data.net.DayHistoryResponse;
 import com.info.lin.infoproject.data.net.GankBeautyResponse;
 import com.info.lin.infoproject.data.net.GankDailyResponse;
@@ -127,6 +128,18 @@ public class RequestManager {
                         callBack.handleError();
                     }
                 });
+    }
+
+    public Observable<List<GankItemBean>> getGirlData(int number, int page) {
+        return mGankApi.getBeauties(number, page)
+                .subscribeOn(Schedulers.io())
+                .map(new Func1<GankBeautyResponse, List<GankItemBean>>() {
+                    @Override
+                    public List<GankItemBean> call(GankBeautyResponse gankBeautyResponse) {
+                        return gankBeautyResponse.getResults();
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     public Subscription getDailyData(final CallBack<GankDailyResponse> callBack) {
@@ -364,6 +377,18 @@ public class RequestManager {
                         callBack.handleError();
                     }
                 });
+    }
+
+    public Observable<List<DailyStory>> getZhiBeforeDailyData(String date) {
+        return mZhiApi.getBeforeDaily(date)
+                .subscribeOn(Schedulers.io())
+                .map(new Func1<ZhiBeforeDailyResponse, List<DailyStory>>() {
+                    @Override
+                    public List<DailyStory> call(ZhiBeforeDailyResponse zhiBeforeDailyResponse) {
+                        return zhiBeforeDailyResponse.getStories();
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     public Subscription getZhiDetailedStory(int storyId, final NormalCallBack<ZhiDetailResponse> callBack) {
