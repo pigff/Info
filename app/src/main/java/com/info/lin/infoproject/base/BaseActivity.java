@@ -30,6 +30,7 @@ public class BaseActivity extends RxAppCompatActivity {
 
     protected static final String TAG = "BaseActivity";
 
+
     private Dialog mProgressDialog;
 
     protected void openActivity(Class<?> clazz) {

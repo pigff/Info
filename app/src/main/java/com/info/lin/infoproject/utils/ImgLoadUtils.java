@@ -27,7 +27,7 @@ public class ImgLoadUtils {
         Glide.with(context)
                 .load(url)
                 .error(R.drawable.img_load_error)
-                .fitCenter()
+                .dontAnimate()
                 .into(view);
     }
 

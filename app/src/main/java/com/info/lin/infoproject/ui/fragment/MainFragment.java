@@ -22,9 +22,6 @@ import java.util.List;
 
 public class MainFragment extends BaseFragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
     private String[] mTitles = {Constants.TYPE_DAILY, Constants.TYPE_ANDROID, Constants.TYPE_IOS,
                                         Constants.TYPE_WEB, Constants.TYPE_APP, Constants.TYPE_EXPAND_RES};
 

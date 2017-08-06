@@ -13,7 +13,6 @@ import com.info.lin.infoproject.data.net.GankDataResponse;
 import com.info.lin.infoproject.data.net.GankItemBean;
 import com.info.lin.infoproject.data.net.MultiData;
 import com.info.lin.infoproject.data.net.ZhiBeforeDailyResponse;
-import com.info.lin.infoproject.data.net.ZhiDailyResponse;
 import com.info.lin.infoproject.data.net.ZhiDetailResponse;
 import com.info.lin.infoproject.utils.AppUtils;
 import com.info.lin.infoproject.utils.constant.Constants;
@@ -113,23 +112,6 @@ public class RequestManager {
         return sRequestManager;
     }
 
-    public Subscription getGirlData(int number, int page, final CallBack<GankBeautyResponse> callBack) {
-        return mGankApi.getBeauties(number, page)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<GankBeautyResponse>() {
-                    @Override
-                    public void call(GankBeautyResponse gankBeautyResponse) {
-                        callBack.handle(gankBeautyResponse);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        callBack.handleError();
-                    }
-                });
-    }
-
     public Observable<List<GankItemBean>> getGirlData(int number, int page) {
         return mGankApi.getBeauties(number, page)
                 .subscribeOn(Schedulers.io())
@@ -142,57 +124,6 @@ public class RequestManager {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Subscription getDailyData(final CallBack<GankDailyResponse> callBack) {
-        return mGankApi.getDayHistory()
-                .filter(new Func1<DayHistoryResponse, Boolean>() {
-                    @Override
-                    public Boolean call(DayHistoryResponse dayHistoryResponse) {
-                        return dayHistoryResponse != null && dayHistoryResponse.getResults() != null
-                                && dayHistoryResponse.getResults().size() > 0;
-                    }
-                })
-                .map(new Func1<DayHistoryResponse, Calendar>() {
-                    @Override
-                    public Calendar call(DayHistoryResponse dayHistoryResponse) {
-                        Calendar calendar = Calendar.getInstance(Locale.CHINA);
-                        try {
-                            calendar.setTime(dataFormat.parse(dayHistoryResponse.getResults().get(0)));
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                            calendar = null;
-                        }
-                        return calendar;
-                    }
-                })
-                .filter(new Func1<Calendar, Boolean>() {
-                    @Override
-                    public Boolean call(Calendar calendar) {
-                        return calendar != null;
-                    }
-                })
-                .flatMap(new Func1<Calendar, Observable<GankDailyResponse>>() {
-                    @Override
-                    public Observable<GankDailyResponse> call(Calendar calendar) {
-                        int year = calendar.get(Calendar.YEAR);
-                        int month = calendar.get(Calendar.MONTH) + 1;
-                        int day = calendar.get(Calendar.DAY_OF_MONTH);
-                        return mGankApi.getDailyData(year, month, day);
-                    }
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<GankDailyResponse>() {
-                    @Override
-                    public void call(GankDailyResponse gankDailyResponse) {
-                        callBack.handle(gankDailyResponse);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        callBack.handleError();
-                    }
-                });
-    }
 
     public Observable<List<MultiData>> getGankData(String category, int count, int page) {
         final List<MultiData> multiDatas = new ArrayList<>();
@@ -328,56 +259,6 @@ public class RequestManager {
                 });
     }
 
-    public Subscription getGankData(String category, int count, int page, final CallBack<GankDataResponse> callBack) {
-        return mGankApi.getGankData(category, count, page)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<GankDataResponse>() {
-                    @Override
-                    public void call(GankDataResponse gankDataResponse) {
-                        callBack.handle(gankDataResponse);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        callBack.handleError();
-                    }
-                });
-    }
-
-    public Subscription getZhiDailyData(final NormalCallBack<ZhiDailyResponse> callBack) {
-        return mZhiApi.getLatestDaily()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<ZhiDailyResponse>() {
-                    @Override
-                    public void call(ZhiDailyResponse zhiDailyResponse) {
-                        callBack.handle(zhiDailyResponse);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        callBack.handleError();
-                    }
-                });
-    }
-
-    public Subscription getZhiBeforeDailyData(String date, final NormalCallBack<ZhiBeforeDailyResponse> callBack) {
-        return mZhiApi.getBeforeDaily(date)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<ZhiBeforeDailyResponse>() {
-                    @Override
-                    public void call(ZhiBeforeDailyResponse zhiBeforeDailyResponse) {
-                        callBack.handle(zhiBeforeDailyResponse);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        callBack.handleError();
-                    }
-                });
-    }
 
     public Observable<List<DailyStory>> getZhiBeforeDailyData(String date) {
         return mZhiApi.getBeforeDaily(date)

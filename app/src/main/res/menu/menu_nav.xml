@@ -5,30 +5,30 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_main"
-            android:icon="@mipmap/ic_skin"
+            android:icon="@mipmap/ic_main"
             android:title="首页"/>
         <item
             android:id="@+id/nav_zhihu"
-            android:icon="@mipmap/ic_skin"
+            android:icon="@mipmap/ic_zhi_on"
             android:title="知乎"/>
 
         <item
             android:id="@+id/nav_meizhi"
-            android:icon="@mipmap/ic_skin"
+            android:icon="@mipmap/ic_girl"
             android:title="妹纸"/>
 
         <item
             android:id="@+id/nav_like"
-            android:icon="@mipmap/ic_skin"
-            android:title="喜欢"/>
+            android:icon="@mipmap/ic_like"
+            android:title="收藏"/>
 
-        <item
-            android:id="@+id/nav_four"
-            android:icon="@mipmap/ic_skin"
-            android:title="一键换肤"/>
-        <item
-            android:id="@+id/nav_five"
-            android:icon="@mipmap/ic_skin"
-            android:title="一键换肤"/>
+        <!--<item-->
+            <!--android:id="@+id/nav_four"-->
+            <!--android:icon="@mipmap/ic_skin"-->
+            <!--android:title="一键换肤"/>-->
+        <!--<item-->
+            <!--android:id="@+id/nav_five"-->
+            <!--android:icon="@mipmap/ic_skin"-->
+            <!--android:title="一键换肤"/>-->
     </group>
 </menu>

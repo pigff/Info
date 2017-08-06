@@ -13,12 +13,9 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.info.lin.infoproject.R;
+import com.info.lin.infoproject.base.BaseFragment;
 import com.info.lin.infoproject.callback.TanTanCallback;
-import com.info.lin.infoproject.data.net.GankBeautyResponse;
 import com.info.lin.infoproject.data.net.GankItemBean;
-import com.info.lin.infoproject.network.CallBack;
-import com.info.lin.infoproject.network.RequestManager;
-import com.info.lin.infoproject.ui.base.BaseFragment;
 import com.info.lin.infoproject.utils.ImgLoadUtils;
 import com.mcxtzhang.layoutmanager.swipecard.CardConfig;
 import com.mcxtzhang.layoutmanager.swipecard.OverLayCardLayoutManager;
@@ -69,18 +66,18 @@ public class LikeFragment extends BaseFragment {
     }
 
     private void getData() {
-        mSubscription = RequestManager.getInstance()
-                .getGirlData(mNumber, mPage, new CallBack<GankBeautyResponse>() {
-                    @Override
-                    public void success(GankBeautyResponse gankBeautyResponse) {
-                        mAdapter.addData(gankBeautyResponse.getResults());
-                        mPage++;
-                    }
-
-                    @Override
-                    public void error() {
-                    }
-                });
+//        RequestManager.getInstance()
+//                .getGirlData(mNumber, mPage, new CallBack<GankBeautyResponse>() {
+//                    @Override
+//                    public void success(GankBeautyResponse gankBeautyResponse) {
+//                        mAdapter.addData(gankBeautyResponse.getResults());
+//                        mPage++;
+//                    }
+//
+//                    @Override
+//                    public void error() {
+//                    }
+//                });
     }
 
     private void init() {
