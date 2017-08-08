@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.info.lin.infoproject.R;
 import com.info.lin.infoproject.base.presenter.imp.ListPresenter;
 import com.info.lin.infoproject.base.view.IListView;
+import com.info.lin.infoproject.utils.LogUtil;
 
 import java.util.List;
 
@@ -94,8 +95,9 @@ public abstract class BaseRecyclerFragment<T, V extends BaseQuickAdapter<T, ? ex
     private void initRecyclerView() {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(getLayoutManager());
-//        mRecyclerView.setAdapter(mAdapter);
-        mAdapter.bindToRecyclerView(mRecyclerView);
+        mRecyclerView.setAdapter(mAdapter);
+        LogUtil.d(TAG, getClass().getSimpleName() + "bind");
+//        mAdapter.bindToRecyclerView(mRecyclerView);
     }
 
     @Override
@@ -254,4 +256,14 @@ public abstract class BaseRecyclerFragment<T, V extends BaseQuickAdapter<T, ? ex
     protected void loadData(int pageNum) {
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mRecyclerView == null) {
+            LogUtil.d(TAG, "destroy view recycler");
+        } else {
+            LogUtil.d(TAG, "no destroy view");
+        }
+
+    }
 }

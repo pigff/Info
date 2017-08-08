@@ -79,10 +79,16 @@ public abstract class MvpFragment<P extends BasePresenter> extends BaseFragment 
         }
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        LogUtil.d(TAG, "destroy view: " + getClass().getSimpleName());
+    }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        LogUtil.d(TAG, "destroy: " + getClass().getSimpleName());
     }
 
     @Override

@@ -1,13 +1,18 @@
 package com.info.lin.infoproject.ui.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.info.lin.infoproject.R;
 import com.info.lin.infoproject.adapter.ZhiAdapter;
 import com.info.lin.infoproject.base.BaseRecyclerFragment;
 import com.info.lin.infoproject.base.presenter.imp.ZhiPresenter;
 import com.info.lin.infoproject.data.net.DailyStory;
+import com.info.lin.infoproject.ui.ZhiWebActivity;
 import com.info.lin.infoproject.utils.AppUtils;
 import com.info.lin.infoproject.utils.constant.Constants;
 
@@ -61,6 +66,18 @@ public class ZhiFragment extends BaseRecyclerFragment<DailyStory, ZhiAdapter, Zh
         }
         mPageNum--;
         setStatus(NORMAL_STATUS);
+    }
+
+    @Override
+    public void initListener() {
+        mRecyclerView.addOnItemTouchListener(new OnItemChildClickListener() {
+            @Override
+            public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent2ZhiDetailed = new Intent(getActivity(), ZhiWebActivity.class);
+                intent2ZhiDetailed.putExtra(Constants.DATA_INTENT, ((DailyStory) adapter.getItem(position)).getId());
+                startActivity(intent2ZhiDetailed);
+            }
+        });
     }
 
     @Override

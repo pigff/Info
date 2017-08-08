@@ -82,7 +82,7 @@ public class SystemBarUtil {
             TypedArray a = activity.obtainStyledAttributes(attrs);
             try {
                 mStatusBarAvailable = a.getBoolean(0, false);
-                mNavBarAvailable = a.getBoolean(1, false);
+                mNavBarAvailable = a.getBoolean(0, false);
             } finally {
                 a.recycle();
             }

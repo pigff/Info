@@ -10,6 +10,7 @@ import com.info.lin.infoproject.base.BaseRecyclerFragment;
 import com.info.lin.infoproject.base.presenter.imp.GankPresenter;
 import com.info.lin.infoproject.data.net.MultiData;
 import com.info.lin.infoproject.ui.WebContentActivity;
+import com.info.lin.infoproject.utils.LogUtil;
 
 
 public abstract class MainBaseFragment extends BaseRecyclerFragment<MultiData, ListMultiAdapter, GankPresenter>  {
@@ -37,6 +38,7 @@ public abstract class MainBaseFragment extends BaseRecyclerFragment<MultiData, L
 
     @Override
     protected ListMultiAdapter initRecyclerAdapter() {
+        LogUtil.d(TAG, "new adapter");
         return new ListMultiAdapter(null);
     }
 

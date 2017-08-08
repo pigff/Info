@@ -29,7 +29,6 @@ public class MainActivity extends BaseToolbarActivity {
 
     private ActionBarDrawerToggle mDrawerToggle;
     private NavigationView mNavigationView;
-    private Fragment mDestFragment;
 
 
     @Override
@@ -39,7 +38,6 @@ public class MainActivity extends BaseToolbarActivity {
 
     @Override
     protected void initData() {
-        mDestFragment = null;
     }
 
     @Override
