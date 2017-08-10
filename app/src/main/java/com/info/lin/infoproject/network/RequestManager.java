@@ -146,7 +146,6 @@ public class RequestManager {
                     .observeOn(AndroidSchedulers.mainThread());
         }
         return mGankApi.getDayHistory()
-
                 .filter(new Func1<DayHistoryResponse, Boolean>() {
                     @Override
                     public Boolean call(DayHistoryResponse dayHistoryResponse) {
@@ -224,7 +223,7 @@ public class RequestManager {
 
                             List<GankItemBean> webList = result.getWebDataList();
                             if (webList != null && webList.size() > 0) {
-                                multiDatas.add(new MultiData(MultiData.ITEM_SORT_LINE, Constants.TYPE_ANDROID));
+                                multiDatas.add(new MultiData(MultiData.ITEM_SORT_LINE, Constants.TYPE_WEB));
                                 for (GankItemBean bean : webList) {
                                     multiDatas.add(new MultiData(MultiData.ITEM_DATA, bean));
                                 }

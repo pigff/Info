@@ -18,7 +18,7 @@ public class GirlPresenter extends ListPresenter<GankItemBean> implements ICommo
                 .getInstance()
                 .getGirlData(pageNum, pageSize)
                 .compose(getView().<List<GankItemBean>>bindToLife())
-                .subscribe(new SimpleSubscriber<List<GankItemBean>>(getLoadSimpleListener()));
+                .subscribe(new SimpleSubscriber<>(getLoadSimpleListener()));
 
     }
 }

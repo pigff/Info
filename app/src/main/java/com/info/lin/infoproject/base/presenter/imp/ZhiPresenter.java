@@ -11,7 +11,7 @@ import java.util.List;
  * Created by greedy on 2017/8/5.
  */
 
-public class ZhiPresenter extends ListPresenter<DailyStory>  implements IZhiPresenter{
+public class ZhiPresenter extends ListPresenter<DailyStory> implements IZhiPresenter {
     @Override
     public void getZhiData(String date) {
         RequestManager
